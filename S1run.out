@@ -1,0 +1,100 @@
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.PrimeSeq \
+100000000000000003 100000000000000013 100000000000000019 100000000000000021 
+100000000000000003
+100000000000000013
+100000000000000019
+100000000000000021
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.PrimeSmp \
+100000000000000003 100000000000000013 100000000000000019 100000000000000021 
+100000000000000019
+100000000000000021
+100000000000000003
+100000000000000013
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.MineCoinSeq \
+b3e5da601135706f 24 
+Coin ID = b3e5da601135706f
+Nonce   = 0000000000f6fa72
+Digest  = 000000f4a186e571af5e0910fc48a0ed87078f7337016d4d406cfc3a05b328e8
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.MineCoinSmp \
+b3e5da601135706f 24 
+Coin ID = b3e5da601135706f
+Nonce   = 0000000000f6fa72
+Digest  = 000000f4a186e571af5e0910fc48a0ed87078f7337016d4d406cfc3a05b328e8
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.PiSeq \
+142857 4000000000 
+pi = 4*3141556293/4000000000 = 3,141556293
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.PiSmp \
+142857 4000000000 
+pi = 4*3141573977/4000000000 = 3,141573977
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.StatTestSeq \
+142857 10 2000000000 
+Bin	Count
+0	200007677
+1	199996144
+2	199981249
+3	199998299
+4	199998146
+5	200010690
+6	200019197
+7	200003302
+8	199983897
+9	200001399
+Chisqr = 5,9335
+Pvalue = 0,74655
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.StatTestSmp \
+142857 10 2000000000 
+Bin	Count
+0	200007677
+1	199996144
+2	199981249
+3	199998299
+4	199998146
+5	200010690
+6	200019197
+7	200003302
+8	199983897
+9	200001399
+Chisqr = 5,9335
+Pvalue = 0,74655
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.TotientSeq \
+10000019
+10000018
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.TotientSmp \
+10000019 
+10000018
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.ZombieSeq \
+142857 200 5 0.5 10 0.00001 0.001 0 0 > zom200_0.txt 
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.ZombieSmp \
+142857 200 5 0.5 10 0.00001 0.001 0 0 > zom200_4.txt 
+${JAVA:-java} -classpath pj2/lib \
+edu.rit.pj2.example.RandomGraph \
+31 310 12345678 > g31.txt
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.MinVerCovSeq \
+g31.txt
+Cover = 0 1 2 3 4 5 6 7 8 10 11 12 13 14 16 17 18 19 20 21 22 24 27 28 29 30
+Size = 26
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan cores=4 \
+edu.rit.pj2.example.MinVerCovSmp \
+g31.txt
+Cover = 0 1 2 3 4 5 6 7 8 10 11 12 13 14 16 17 18 19 20 21 22 24 27 28 29 30
+Size = 26
+${JAVA:-java} -classpath pj2/lib pj2 debug=makespan \
+edu.rit.pj2.example.MandelbrotSeq \
+3200 3200 -0.75 0 1200 1000 0.4 ms3200.png
+96 msec pre
+18038 msec calc
+617 msec write
+18751 msec total
