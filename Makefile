@@ -1,4 +1,4 @@
-PJ2ID	= 20160503
+PJ2ID	= 20160530
 # begin PJ2ID specific
 JSRC = \
 pj2/lib/edu/rit/crypto/CipherInputStream.java \
@@ -155,6 +155,7 @@ pj2/lib/edu/rit/io/InStream.java \
 pj2/lib/edu/rit/io/OutStream.java \
 pj2/lib/edu/rit/io/Stdio.java \
 pj2/lib/edu/rit/io/Streamable.java \
+pj2/lib/edu/rit/io/Tabular.java \
 pj2/lib/edu/rit/io/ThreadedOutputStream.java \
 pj2/lib/edu/rit/numeric/AggregateXYSeries.java \
 pj2/lib/edu/rit/numeric/AggregateXYZSeries.java \
@@ -311,6 +312,7 @@ pj2/lib/edu/rit/pj2/test/Test13.java \
 pj2/lib/edu/rit/pj2/test/Test14.java \
 pj2/lib/edu/rit/pj2/test/Test15.java \
 pj2/lib/edu/rit/pj2/test/Test16.java \
+pj2/lib/edu/rit/pj2/TimeoutException.java \
 pj2/lib/edu/rit/pj2/tracker/BackendReceiver.java \
 pj2/lib/edu/rit/pj2/tracker/BackendRef.java \
 pj2/lib/edu/rit/pj2/tracker/BackendSender.java \
@@ -680,6 +682,10 @@ pj2/lib/edu/rit/io/Stdio\$$2.class \
 pj2/lib/edu/rit/io/Stdio\$$3.class \
 pj2/lib/edu/rit/io/Stdio.class \
 pj2/lib/edu/rit/io/Streamable.class \
+pj2/lib/edu/rit/io/Tabular\$$Printable.class \
+pj2/lib/edu/rit/io/Tabular\$$PrintableStream.class \
+pj2/lib/edu/rit/io/Tabular\$$PrintableWriter.class \
+pj2/lib/edu/rit/io/Tabular.class \
 pj2/lib/edu/rit/io/ThreadedOutputStream.class \
 pj2/lib/edu/rit/numeric/AggregateXYSeries.class \
 pj2/lib/edu/rit/numeric/AggregateXYZSeries.class \
@@ -1045,6 +1051,7 @@ pj2/lib/edu/rit/pj2/test/Test16\$$WorkerTask\$$1\$$1.class \
 pj2/lib/edu/rit/pj2/test/Test16\$$WorkerTask\$$1.class \
 pj2/lib/edu/rit/pj2/test/Test16\$$WorkerTask.class \
 pj2/lib/edu/rit/pj2/test/Test16.class \
+pj2/lib/edu/rit/pj2/TimeoutException.class \
 pj2/lib/edu/rit/pj2/tracker/BackendReceiver.class \
 pj2/lib/edu/rit/pj2/tracker/BackendRef.class \
 pj2/lib/edu/rit/pj2/tracker/BackendSender.class \
@@ -1475,6 +1482,15 @@ vars:
 	-classpath $(srcdir)/lib \
 	$^
 
+Texec:
+	@$${JAVA:-java} -classpath $(srcdir)/lib \
+	edu.rit.pj2.tracker.Tracker \
+	$(TFLAGS) &
+Lexec:
+	@$${JAVA:-java} -classpath $(srcdir)/lib \
+	edu.rit.pj2.tracker.Launcher \
+	$(LFLAGS) &
+
 # step 1 stuff
 S1EX = \
 	PrimeSeq \
@@ -1498,11 +1514,26 @@ S1run: $(S1EX)
 
 # step 2 stuff
 S2EX = \
+	PrimeSeq \
+	PrimeSmp \
+	MineCoinSeq-1 \
+	MineCoinSmp \
+	PiSeq \
+	PiSmp \
+	StatTestSeq \
+	StatTestSmp \
+	TotientSeq-1 \
+	TotientSmp-1 \
+	ZombieSeq-1 \
+	ZombieSmp-1 \
+	MinVerCovSeq \
+	MinVerCovSmp \
+	MandelbrotSeq \
 
-S2build:
+S2build: $(foreach d,$(sort $(dir $(JSRC))),$(d)*.class)
 S2run: $(S2EX)
 
-# step 2 stuff
+# step 3 stuff
 S3EX = \
 
 S3build:
