@@ -46,13 +46,13 @@ make S2build
 make S2run 2>&1 | tee S2run.out
 ```
 
-Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above and setup a Tracker on one of them. This is the frontend node. The remaining instances are backend nodes. Execute a Launcher on each. Run the S2 examples on the frontend node (replace IP's with public IP of frontend (Tracker) node):
+Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above and setup a Tracker on one of them. This is the frontend node. The remaining instances are backend nodes. Execute a Launcher on each. Run the S2 examples on the frontend node (notice issue #1):
 ```
 # On each backend node
-export LFLAGS="tracker=77.21.33.51 command=\"java -classpath pj2/lib\""
+export LFLAGS="tracker=172.31.19.89 command=\"java -classpath pj2/lib\""
 make Lexec
 # On frontend node
-export TFLAGS="tracker=77.21.33.51 web=77.21.33.51"
+export TFLAGS="tracker=172.31.19.89"
 make Texec
 make -j S2run
 ```

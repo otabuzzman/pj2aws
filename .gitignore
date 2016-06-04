@@ -1,5 +1,8 @@
 META-INF/
 pj2/
+.settings/
+.classpath
+.project
 g31.txt
 g40.txt
 ms3200.png
