@@ -46,7 +46,7 @@ make S2build
 make S2run 2>&1 | tee S2run.out
 ```
 
-Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above and setup a Tracker on one of them. This is the frontend node. The remaining instances are backend nodes. Execute a Launcher on each. Run the S2 examples on the frontend node (notice issue #1):
+Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above and setup a Tracker on one of them. This is the frontend node. Execute a Launcher on each of the remaining instances. These are the backend nodes. Run the S2 examples on the frontend node (notice issue #1):
 ```
 # On each backend node
 export LFLAGS="tracker=172.31.19.89 command=\"java -classpath pj2/lib\""
