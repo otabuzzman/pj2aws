@@ -84,8 +84,9 @@ In case of an update to PJ2 1) run `make tidy` 2) update `PJ2ID` variable in `Ma
 
 #### Cues on PJ2 patches
 Run the command `patch -b -p0 < <patch file>` to apply patch files given below.
+
 |Patch file|Description|
-|-|-|
+|---|---|
 |Tracker_20160530.diff|Extend Tracker to use public IP addresses in web interface.|
 
 #### Helpful links
