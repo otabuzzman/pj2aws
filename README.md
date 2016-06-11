@@ -87,7 +87,7 @@ Run the command `patch -b -p0 < <patch file>` to apply patch files given below.
 
 |Patch file|Description|
 |---|---|
-|Tracker_20160530.diff|Extend Tracker to use public IP addresses in web interface.|
+|Tracker_20160530.diff|Extend Tracker to use public IP addresses for web interface access.|
 
 #### Helpful links
 - [Free online textbook](https://www.cs.rit.edu/~ark/bcbd/) *BIG CPU, BIG DATA* by Alan Kaminsky ([PDF](https://www.cs.rit.edu/~ark/bcbd/bcbd.pdf))
