@@ -1,0 +1,19 @@
+--- pj2/lib/edu/rit/pj2/tracker/Tracker.java	2015-01-10 15:33:02.000000000 +0100
++++ pj2/lib/edu/rit/pj2/tracker/TrackerPublicIP.java	2016-06-10 12:25:19.861260500 +0200
+@@ -534,6 +534,16 @@
+ 					}
+ 				});
+ 
++			// Rewrite webHost variable in case of explicit public IP address or hostname.
++			String publicIP = System.getProperty(Tracker.class.getCanonicalName()+".publicip");
++			if (publicIP != null)
++				{
++				webHost = publicIP;
++				logger.log (String.format
++					("Hostname for web access set to %s",
++					 publicIP));
++				}
++
+ 			// Repeatedly accept incoming connections. If an error occurs while
+ 			// accepting a connection, go to the catch-all exception handler.
+ 			for (;;)

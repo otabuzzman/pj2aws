@@ -1484,8 +1484,10 @@ vars:
 
 Texec:
 	@$${JAVA:-java} -classpath $(srcdir)/lib \
+	-Dedu.rit.pj2.tracker.Tracker.publicip=$(PJ2_TRACKER_PUBLICIP) \
 	edu.rit.pj2.tracker.Tracker \
 	$(TFLAGS) &
+
 Lexec:
 	@$${JAVA:-java} -classpath $(srcdir)/lib \
 	edu.rit.pj2.tracker.Launcher \

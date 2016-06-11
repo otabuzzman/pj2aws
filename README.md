@@ -20,7 +20,7 @@ make S1run 2>&1 | tee S1run.out
 The [Tracker](https://www.cs.rit.edu/~ark/pj2/doc/edu/rit/pj2/tracker/package-summary.html) process supports watching task progress in a browser. Run Tracker and schedule S1 examples all at once:
 ```
 # Launch Tracker process with default parameters
-export TFLAGS="node=pj2,2,0"
+export TFLAGS="node=`uname -n`,2,0"
 make Texec
 make -j S1run
 ```
@@ -28,7 +28,7 @@ make -j S1run
 Point browser at [http://localhost:8080/summary](http://localhost:8080/summary) to watch task processing.
 
 #### Step 2. Move to AWS [T2 instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html) (1 year cost-free)
-Launch a T2 instance as described in AWS [user guide](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/concepts.html) sections for [setup](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html) and [getting started](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/EC2_GetStarted.html). SSH connect to instance to continue preparations and run S2 examples:
+Launch a T2 instance as described in AWS [user guide](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/concepts.html) sections for [setup](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html) and [getting started](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/EC2_GetStarted.html). SSH connect to instance. Configure AWS Command Line Interface (in particular public/ private access keys) according to [getting started guide](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html). Run S2 examples:
 ```
 # List installed Java packages
 sudo yum list installed java*
@@ -36,6 +36,8 @@ sudo yum list installed java*
 sudo yum install java-1.7.0-openjdk-devel.x86_64
 # Install Git shell
 sudo yum install git
+# Install patch utility
+sudo yum install patch-2.7.1-8.9.amzn1.x86_64
 # Download pj2aws repository
 [ -d ~/lab ] || { rm -f ~/lab ; mkdir ~/lab ; } ; cd ~/lab
 git clone https://github.com/otabuzzman/pj2aws.git
@@ -46,16 +48,30 @@ make S2build
 make S2run 2>&1 | tee S2run.out
 ```
 
-Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above and setup a Tracker on one of them. This is the frontend node. Execute a Launcher on each of the remaining instances. These are the backend nodes. Run the S2 examples on the frontend node (notice issue #1):
+Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above. Pick one to be the frontend node and setup a Tracker on it:
 ```
-# On each backend node
-export LFLAGS="tracker=172.31.19.89 command=\"java -classpath pj2/lib\""
-make Lexec
-# On frontend node
-export TFLAGS="tracker=172.31.19.89"
+# Lookup instance ID (e.g. i-04eaedbe77fce1a81)
+curl http://169.254.169.254/latest/meta-data/instance-id
+# Lookup private/ public DNS hostnames
+frontend_private_dns=`curl --stderr /dev/null http://169.254.169.254/latest/meta-data/local-hostname`
+frontend_public_dns=`curl --stderr /dev/null http://169.254.169.254/latest/meta-data/public-hostname`
+export PJ2_TRACKER_PUBLICIP=$frontend_public_dns
+export TFLAGS="tracker=$frontend_private_dns web=$frontend_private_dns"
 make Texec
+```
+The remaining instances are backend nodes. Execute a Launcher on each of them:
+```
+# Get private IP address of frontend node
+frontend_private_dns=`aws ec2 describe-instances --instance-ids i-04eaedbe77fce1a81 --query Reservations[0].Instances[0].PrivateDnsName`
+export LFLAGS="tracker=$frontend_private_dns command=\"java -classpath pj2/lib\""
+make Lexec
+```
+Switch to frontend node and run S2 examples again (notice [issue #1](https://github.com/otabuzzman/pj2aws/issues/1)):
+```
+# Run examples on frontend node
 make -j S2run
 ```
+To watch task processing with browser apply [issue #1](https://github.com/otabuzzman/pj2aws/issues/1). In [http://localhost:8080/summary](http://localhost:8080/summary) replace *localhost* with value of `$PJ2_TRACKER_PUPLICIP` and open URL in browser.
 
 #### Step 3. Move to AWS [GPU instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using_cluster_computing.html) ([charge](https://aws.amazon.com/ec2/pricing/?nc1=h_ls))
 In progress...
@@ -66,11 +82,18 @@ Updates to PJ2 have an update specific value which is the numerical part in the 
 
 In case of an update to PJ2 1) run `make tidy` 2) update `PJ2ID` variable in `Makefile` 3) run `make init` and finally 4) replace embraced variables with output of `make vars`.
 
----
+#### Cues on PJ2 patches
+Run the command `patch -b -p0 < <patch file>` to apply patch files given below.
+|Patch file|Description|
+|-|-|
+|Tracker_20160530.diff|Extend Tracker to use public IP addresses in web interface.|
+
 #### Helpful links
 - [Free online textbook](https://www.cs.rit.edu/~ark/bcbd/) *BIG CPU, BIG DATA* by Alan Kaminsky ([PDF](https://www.cs.rit.edu/~ark/bcbd/bcbd.pdf))
 - [AWS Simple Monthly Calculator](http://calculator.s3.amazonaws.com/index.html)
 - [Comment](http://serverfault.com/questions/585601/how-can-i-separate-my-personal-amazon-account-from-my-aws-account/769899#769899) about sharing existing Amazon account with AWS
 - Practical [GPU instance setup](https://www.ecofinancialtechnology.com/2014/07/build-a-gpu-development-environment-hosted-on-aws/) (with VNC desktop)
 - Cues on [using CUDA on AWS](http://jackmorrison.me/2014/09/11/CUDA-on-AWS.html)
-- [RDP Configuration](https://aws.amazon.com/de/premiumsupport/knowledge-center/connect-to-linux-desktop-from-windows/) for AWS desktop functionality
+- [RDP configuration](https://aws.amazon.com/de/premiumsupport/knowledge-center/connect-to-linux-desktop-from-windows/) for AWS desktop functionality
+- [Retrieving instance meta data](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) (e.g. public IP address)
+- [AWS Command Line Interface Documentation](http://docs.aws.amazon.com/cli/) User Guide and Rreference
