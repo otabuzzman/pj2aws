@@ -1,4 +1,4 @@
-PJ2ID	= 20160530
+PJ2ID	= 20160608
 # begin PJ2ID specific
 JSRC = \
 pj2/lib/edu/rit/crypto/CipherInputStream.java \
@@ -56,6 +56,7 @@ pj2/lib/edu/rit/gpu/example/PiGpu.java \
 pj2/lib/edu/rit/gpu/example/PiGpu2.java \
 pj2/lib/edu/rit/gpu/example/Powers.java \
 pj2/lib/edu/rit/gpu/example/Prng.java \
+pj2/lib/edu/rit/gpu/example/SubsetSum.java \
 pj2/lib/edu/rit/gpu/example/Test01.java \
 pj2/lib/edu/rit/gpu/example/WalkSackGpu.java \
 pj2/lib/edu/rit/gpu/example/WV.java \
@@ -560,6 +561,7 @@ pj2/lib/edu/rit/gpu/example/Powers\$$PowersKernel.class \
 pj2/lib/edu/rit/gpu/example/Powers\$$powers_t.class \
 pj2/lib/edu/rit/gpu/example/Powers.class \
 pj2/lib/edu/rit/gpu/example/Prng.class \
+pj2/lib/edu/rit/gpu/example/SubsetSum.class \
 pj2/lib/edu/rit/gpu/example/Test01.class \
 pj2/lib/edu/rit/gpu/example/WalkSackGpu\$$1.class \
 pj2/lib/edu/rit/gpu/example/WalkSackGpu\$$SolutionVbl.class \
@@ -1511,7 +1513,7 @@ S1EX = \
 	MinVerCovSmp \
 	MandelbrotSeq \
 
-S1build: $(foreach d,$(sort $(dir $(JSRC))),$(d)*.class)
+S1build: $(srcdir) $(patsubst %.java,%.class,$(JSRC))
 S1run: $(S1EX)
 
 # step 2 stuff
@@ -1532,7 +1534,7 @@ S2EX = \
 	MinVerCovSmp \
 	MandelbrotSeq \
 
-S2build: $(foreach d,$(sort $(dir $(JSRC))),$(d)*.class)
+S2build: $(srcdir) $(patsubst %.java,%.class,$(JSRC))
 S2run: $(S2EX)
 
 # step 3 stuff
