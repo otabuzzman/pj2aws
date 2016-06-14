@@ -13,6 +13,7 @@ export PATH=/cygdrive/c/program\ files/java/jdk1.7.0_71/bin:$PATH
 git clone https://github.com/otabuzzman/pj2aws.git
 # On Windows switch back to Cygwin
 cd pj2aws
+make pj2 clean
 make S1build
 make S1run 2>&1 | tee S1run.out
 ```
@@ -43,6 +44,7 @@ sudo yum install patch-2.7.1-8.9.amzn1.x86_64
 git clone https://github.com/otabuzzman/pj2aws.git
 # Build pj2aws
 cd pj2aws
+make pj2 clean
 make S2build
 # Run S2 examples
 make S2run 2>&1 | tee S2run.out
@@ -66,7 +68,7 @@ frontend_private_dns=`aws ec2 describe-instances --instance-ids i-04eaedbe77fce1
 export LFLAGS="tracker=$frontend_private_dns command=\"java -classpath pj2/lib\""
 make Lexec
 ```
-Switch to frontend node and run S2 examples again (notice [issue #1](https://github.com/otabuzzman/pj2aws/issues/1)):
+Switch to frontend node and run S2 examples again:
 ```
 # Run examples on frontend node
 make -j S2run
@@ -83,7 +85,7 @@ Updates to PJ2 have an update specific value which is the numerical part in the 
 In case of an update to PJ2 1) run `make tidy` 2) update `PJ2ID` variable in `Makefile` 3) run `make init` and finally 4) replace embraced variables with output of `make vars`.
 
 #### Cues on PJ2 patches
-Run the command `patch -b -p0 < <patch file>` to apply patch files given below.
+Run `patch -b -p0 < <patch file>` to apply patch files given below.
 
 |Patch file|Description|
 |---|---|

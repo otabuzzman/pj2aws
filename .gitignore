@@ -3,6 +3,7 @@ pj2/
 .settings/
 .classpath
 .project
+awsssh.sh.cache
 g31.txt
 g40.txt
 ms3200.png

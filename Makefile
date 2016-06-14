@@ -1513,7 +1513,7 @@ S1EX = \
 	MinVerCovSmp \
 	MandelbrotSeq \
 
-S1build: $(srcdir) $(patsubst %.java,%.class,$(JSRC))
+S1build: $(foreach d,$(sort $(dir $(JSRC))),$(d)*.class)
 S1run: $(S1EX)
 
 # step 2 stuff
@@ -1534,7 +1534,7 @@ S2EX = \
 	MinVerCovSmp \
 	MandelbrotSeq \
 
-S2build: $(srcdir) $(patsubst %.java,%.class,$(JSRC))
+S2build: $(foreach d,$(sort $(dir $(JSRC))),$(d)*.class)
 S2run: $(S2EX)
 
 # step 3 stuff
