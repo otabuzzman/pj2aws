@@ -1,4 +1,4 @@
-PJ2ID	= 20160608
+PJ2ID	= 20160620
 # begin PJ2ID specific
 JSRC = \
 pj2/lib/edu/rit/crypto/CipherInputStream.java \
@@ -381,6 +381,8 @@ pj2/lib/edu/rit/pjmr/example/Concordance03.java \
 pj2/lib/edu/rit/pjmr/example/Concordance04.java \
 pj2/lib/edu/rit/pjmr/example/IPAddress.java \
 pj2/lib/edu/rit/pjmr/example/MaxTemp01.java \
+pj2/lib/edu/rit/pjmr/example/Nola911.java \
+pj2/lib/edu/rit/pjmr/example/Nola911Block.java \
 pj2/lib/edu/rit/pjmr/example/WebLog01.java \
 pj2/lib/edu/rit/pjmr/example/WebLog02.java \
 pj2/lib/edu/rit/pjmr/example/WebLog03.java \
@@ -1217,6 +1219,12 @@ pj2/lib/edu/rit/pjmr/example/MaxTemp01\$$MyCustomizer.class \
 pj2/lib/edu/rit/pjmr/example/MaxTemp01\$$MyMapper.class \
 pj2/lib/edu/rit/pjmr/example/MaxTemp01\$$MyReducer.class \
 pj2/lib/edu/rit/pjmr/example/MaxTemp01.class \
+pj2/lib/edu/rit/pjmr/example/Nola911\$$MyCustomizer\$$1.class \
+pj2/lib/edu/rit/pjmr/example/Nola911\$$MyCustomizer.class \
+pj2/lib/edu/rit/pjmr/example/Nola911\$$MyMapper.class \
+pj2/lib/edu/rit/pjmr/example/Nola911\$$MyReducer.class \
+pj2/lib/edu/rit/pjmr/example/Nola911.class \
+pj2/lib/edu/rit/pjmr/example/Nola911Block.class \
 pj2/lib/edu/rit/pjmr/example/WebLog01\$$MyCustomizer.class \
 pj2/lib/edu/rit/pjmr/example/WebLog01\$$MyMapper.class \
 pj2/lib/edu/rit/pjmr/example/WebLog01\$$MyReducer.class \

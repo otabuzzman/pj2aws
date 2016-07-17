@@ -1,5 +1,5 @@
 # PJ2 AWS
-A lab to bring the [Parallel Java 2 Library](https://www.cs.rit.edu/~ark/pj2.shtml) on an AWS GPU instance (due to lack of access to CUDA capable device). The project is divided into three major parts. The 1st one serves to get familiar with the structure of the PJ2 source and the tools provided by the distribution. Target of the 1st step is an environment that allows to build the PJ2 examples on a local CPU and execute. The 2nd step moves the local project remote to an AWS T2 instance. T2 was chosen because it's free of charge for one year. Main purpose of this step is to get familiar with AWS concepts and tools. Another goal was to find out how to include AWS instances into development. The target of this step corresponds to step 1 except the difference that the examples are build and run remote on an AWS instance. The 3rd step finally leads to the actual aim of the project namely to build the GPU examples on an AWS instance and execute.
+A lab to bring the [Parallel Java 2 Library](https://www.cs.rit.edu/~ark/pj2.shtml) on an AWS GPU instance. The project is divided into three major parts. Step 1 serves to get familiar with the structure of the PJ2 source and the tools provided by the distribution. Target of the 1st step is an environment that allows to build the PJ2 examples on a local CPU and execute. Step 2 moves the local project remote to an AWS T2 instance. T2 was chosen because it's free of charge for one year. Main purpose of this step is to get familiar with AWS concepts and tools. Another goal was to find out how to include AWS instances into development. The target of this step corresponds to step 1 except the difference that the examples are build and run remote on an AWS instance. The 3rd step finally leads to the actual aim of the project namely to build the GPU examples on an AWS instance and execute.
 
 #### Step 1. Make PJ2 examples run on multi-core CPU (e.g. local PC)
 Download and install [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (at least 7) and Git Shell. If on Windows download and install [Cygwin](http://cygwin.com/) as well. Consider a full install to avoid problems due to missing packages. Let shell variables `JAVAC` and `JAVA` point at `javac` and `java` respectively or make executables accessible via `PATH`. Build pj2aws and run S1 examples (commands with sample values):
@@ -29,7 +29,7 @@ make -j S1run
 Point browser at [http://localhost:8080/summary](http://localhost:8080/summary) to watch task processing.
 
 #### Step 2. Move to AWS [T2 instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html) (1 year cost-free)
-Launch a T2 instance as described in AWS [user guide](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/concepts.html) sections for [setup](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html) and [getting started](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/EC2_GetStarted.html). SSH connect to instance. Configure AWS Command Line Interface (in particular public/ private access keys) according to [getting started guide](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html). Run S2 examples:
+Launch a T2 instance as described in AWS [user guide](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/concepts.html) sections for [setup](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html) and [getting started](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/EC2_GetStarted.html). Set `Title` tag to a descriptive value (e.g. Tracker). Set `Created` tag to date/ time of instance creation (e.g. value of *Attachment time* attribute of *Block device* that equals *Root device*). Configure AWS Command Line Interface (in particular public/ private access keys) according to [getting started guide](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html). SSH connect to instance and run S2 examples:
 ```
 # List installed Java packages
 sudo yum list installed java*
@@ -50,7 +50,7 @@ make S2build
 make S2run 2>&1 | tee S2run.out
 ```
 
-Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above. Pick one to be the frontend node and setup a Tracker on it:
+Launch more T2 instances and configure a PJ2 cluster parallel computer. Prepare them as described above. Don't forget to enable *Auto-assign Public IP* (choose *Use subnet setting (Enable)*) during instance setup. Pick one instance to be the frontend node and setup a Tracker on it:
 ```
 # Lookup instance ID (e.g. i-04eaedbe77fce1a81)
 curl http://169.254.169.254/latest/meta-data/instance-id
@@ -58,7 +58,7 @@ curl http://169.254.169.254/latest/meta-data/instance-id
 frontend_private_dns=`curl --stderr /dev/null http://169.254.169.254/latest/meta-data/local-hostname`
 frontend_public_dns=`curl --stderr /dev/null http://169.254.169.254/latest/meta-data/public-hostname`
 export PJ2_TRACKER_PUBLICIP=$frontend_public_dns
-export TFLAGS="tracker=$frontend_private_dns web=$frontend_private_dns"
+export TFLAGS="tracker=$frontend_private_dns web=$frontend_private_dns node=`uname -n`,1,0"
 make Texec
 ```
 The remaining instances are backend nodes. Execute a Launcher on each of them:
@@ -84,6 +84,8 @@ Updates to PJ2 have an update specific value which is the numerical part in the 
 
 In case of an update to PJ2 1) run `make tidy` 2) update `PJ2ID` variable in `Makefile` 3) run `make init` and finally 4) replace embraced variables with output of `make vars`.
 
+Check if patch files are affected from update.
+
 #### Cues on PJ2 patches
 Run `patch -b -p0 < <patch file>` to apply patch files given below.
 
@@ -100,3 +102,5 @@ Run `patch -b -p0 < <patch file>` to apply patch files given below.
 - [RDP configuration](https://aws.amazon.com/de/premiumsupport/knowledge-center/connect-to-linux-desktop-from-windows/) for AWS desktop functionality
 - [Retrieving instance meta data](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html) (e.g. public IP address)
 - [AWS Command Line Interface Documentation](http://docs.aws.amazon.com/cli/) User Guide and Rreference
+- Cues on [how to handle AWS CLI command output](http://docs.aws.amazon.com/cli/latest/userguide/controlling-output.html#controlling-output-filter) and [nested list processing](http://jmespath.org/examples.html#working-with-nested-data)
+- Hands-on [tutorial on using JMESPath queries](http://opensourceconnections.com/blog/2015/07/27/advanced-aws-cli-jmespath-query) in AWS CLI

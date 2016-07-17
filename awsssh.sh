@@ -1,37 +1,43 @@
-# awsssh.sh - SSH connect to AWS instance
+# awsssh.sh - SSH connect to AWS instance using instance ID
 #
-# Usage:
-#	awsssh.sh [-i <index>] [-u <user>] [-- <ssh options except [user@]hostname [command]> [-- <command>]]
+# usage:
+#	awsssh.sh [-l -i <index>] [-u <user>] [-- <ssh options except "[user@]hostname [command]"> [-- <command>]]
 
 cache=`basename $0`.cache
 
 iidx=1
 iusr=ec2-user
 
+# no more than 1 TAB to avoid bash completion
 test -f $cache || \
 	aws ec2 describe-instances --query \
-	Reservations[*].Instances[*].InstanceId |\
-	sed -e 's,\r,,g' \
+	'sort_by(
+	Reservations[].Instances[?State.Code!=`48`][],
+	&Tags[?Key==`Created`].Value[]|[0])[*]
+	.[InstanceId,
+	Tags[?Key==`Created`].Value[]|[0],
+	Tags[?Key==`Title`].Value[]|[0]]' |\
+	sed 's,\r,,g' \
 	>$cache
 
 while getopts "li:u:" opt ; do
 	case $opt in
-	l) # list AWS instances in chache file
+	l) # list AWS instances and indices
 	test -f $cache && nl $cache ; exit
 	;;
 	i) # index of AWS instance as listed by -l
 	iidx=$OPTARG
 	;;
-	u) # AMI user of instance
+	u) # user on instance
 	iusr=$OPTARG
 	;;
 	esac
 done
 
-shift $((OPTIND-2))
+test $OPTIND -gt 1 && shift $((OPTIND-2))
 test "$1" = "--" && {
 	shift
-	while test "$1" != "--" ; do
+	while test -n "$1" -a "$1" != "--" ; do
 		sshopt="$sshopt $1"
 		shift
 	done
@@ -40,8 +46,9 @@ shift
 sshcmd=$*
 
 readarray -t ilst <$cache
+set ${ilst[$((iidx-1))]}
 idns=`aws ec2 describe-instances \
-		--instance-ids ${ilst[$((iidx-1))]} \
+		--instance-ids $1 \
 		--query Reservations[0].Instances[0].PublicDnsName |\
 		sed -e 's,\r,,g'`
 
