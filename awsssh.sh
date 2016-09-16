@@ -16,7 +16,7 @@ test -f $cache || \
 	&Tags[?Key==`Created`].Value[]|[0])[*]
 	.[InstanceId,
 	Tags[?Key==`Created`].Value[]|[0],
-	Tags[?Key==`Title`].Value[]|[0]]' |\
+	Tags[?Key==`Alias`].Value[]|[0]]' |\
 	sed 's,\r,,g' \
 	>$cache
 

@@ -1,9 +1,11 @@
 META-INF/
+auth/
 pj2/
 .settings/
 .classpath
 .project
 awsssh.sh.cache
+bcbd.pdf
 g31.txt
 g40.txt
 ms3200.png
