@@ -1,3 +1,9 @@
+ifeq ($(OS),Windows_NT)
+	winos := 1
+else
+	linos := 1
+endif
+
 PJ2ID	= 20160910
 # begin PJ2ID specific
 JSRC = \
@@ -1500,13 +1506,13 @@ init: $(srcdir)
 
 vars:
 	@echo JSRC = \\
-	@find $(srcdir) -name '*.java' -print | sed -e 's,$$, \\,'
+	@find $(srcdir)/lib -name '*.java' -print | sed -e 's,$$, \\,'
 	@echo
 	@echo JOBJ = \\
-	@find $(srcdir) -name '*.class' -print | sed -e 's,$$, \\,' -e 's,\$$,\\\$$\$$,g'
+	@find $(srcdir)/lib -name '*.class' -print | sed -e 's,$$, \\,' -e 's,\$$,\\\$$\$$,g'
 	@echo
 	@echo CUSRC = \\
-	@find $(srcdir) -name '*.cu' -print | sed -e 's,$$, \\,'
+	@find $(srcdir)/lib -name '*.cu' -print | sed -e 's,$$, \\,'
 	@echo
 
 .SUFFIXES: .java .class
@@ -1583,15 +1589,27 @@ S2run: $(S2EX)
 .cu.ptx:
 	$${NVCC:-nvcc} -ptx -arch compute_20 -o $@ $<
 
+ifdef winos
+$(srcdir)/lib/EduRitGpuCuda.dll: $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
+	$${CC:-x86_64-w64-mingw32-gcc} \
+	-I"$(JAVA_HOME)/include" \
+	-I"$(JAVA_HOME)/include/win32" \
+	-I$(CUDA_HOME)/include \
+	-Wall -shared \
+	-o $@ $< \
+	-L$(CUDA_HOME)/lib/x64 \
+	-lcuda
+else
 $(srcdir)/lib/libEduRitGpuCuda.so: $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
 	$${CC:-gcc} \
 	-I$(JAVA_HOME)/include \
 	-I$(JAVA_HOME)/include/linux \
 	-I$(CUDA_HOME)/include \
-	-shared -fPIC \
+	-Wall -shared -fPIC \
 	-o $@ $< \
 	-L$(CUDA_HOME)/lib64 \
 	-lcuda
+endif
 
 S3EX = \
 	PiGpu2-1 \
@@ -1599,7 +1617,7 @@ S3EX = \
 	ZombieGpu \
 	ZombieGpu2 \
 
-S3build: $(JCLS) $(CUOBJ) $(srcdir)/lib/libEduRitGpuCuda.so
+S3build: $(srcdir)/lib/libEduRitGpuCuda.so $(CUOBJ) $(JCLS)
 S3run: $(S3EX)
 
 
@@ -1615,7 +1633,7 @@ clean:
 jclean:
 	rm -f $(JOBJ)
 cclean:
-	rm -f $(CUOBJ) $(srcdir)/lib/libEduRitGpuCuda.so
+	rm -f $(srcdir)/lib/libEduRitGpuCuda.so $(srcdir)/lib/EduRitGpuCuda.dll $(CUOBJ)
 
 # local clean
 lclean: clean
