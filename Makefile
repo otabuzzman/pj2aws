@@ -1617,7 +1617,11 @@ S3EX = \
 	ZombieGpu \
 	ZombieGpu2 \
 
+ifdef winos
+S3build: $(srcdir)/lib/EduRitGpuCuda.dll $(CUOBJ) $(JCLS)
+else
 S3build: $(srcdir)/lib/libEduRitGpuCuda.so $(CUOBJ) $(JCLS)
+endif
 S3run: $(S3EX)
 
 
