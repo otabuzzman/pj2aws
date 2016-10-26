@@ -4,7 +4,7 @@ else
 	linos := 1
 endif
 
-PJ2ID	= 20160910
+PJ2ID	= 20161014
 # begin PJ2ID specific
 JSRC = \
 pj2/lib/edu/rit/crypto/CipherInputStream.java \
@@ -1160,6 +1160,8 @@ pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Or.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Sum.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Xor.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl.class \
+pj2/lib/edu/rit/pj2/vbl/CharVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/CharVbl\$$Min.class \
 pj2/lib/edu/rit/pj2/vbl/CharVbl.class \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl\$$Mean.class \
