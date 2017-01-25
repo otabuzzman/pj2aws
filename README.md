@@ -102,7 +102,7 @@ wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers
 sudo sh cuda_7.5.18_linux.run
 ```
 
-Runfile installation of CUDA version 7.5.18 will most likely fail in case of Amazon Linux AMI 2016.03.3. The error report states a return type violation in file `nv-procfs.c`. This error has already been found and [documented](https://devtalk.nvidia.com/default/topic/877365/355-11-linux-4-3-rc1-build-error). Search runfile log (e.g. `/tmp/cuda_install_13120.log`) and NVIDIA driver installer log `/var/log/nvidia-installer.log` for cause of current error. In case of `nv-procfs.c` mentioned above unpack runfile fix error and perform manual CUDA installation:
+There is an already [reported issue](https://devtalk.nvidia.com/default/topic/880246/cuda-7-5-unstable-on-ec2-/) with the NVIDIA driver on AWS G2 instances: CUDA applications might hang frequently if version of CUDA driver is less than 352.63. To fix one has to download the proper driver and install CUDA toolkit and NVIDIA driver separately:
 ```
 # Unpack CUDA runfile in HOME directory
 cd ; sh cuda_7.5.18_linux.run --extract=`pwd`
@@ -110,12 +110,12 @@ cd ; sh cuda_7.5.18_linux.run --extract=`pwd`
 # NVIDIA-Linux-x86_64-352.39.run
 # cuda-linux64-rel-7.5.18-19867135.run
 # cuda-samples-linux-7.5.18-19867135.run
+# Download propper NVIDIA driver 352.63
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/352.63/NVIDIA-Linux-x86_64-352.63.run
 # Unpack NVIDIA driver runfile
-sh NVIDIA-Linux-x86_64-352.39.run --extract-only
-# Fix nv-procfs.c as described in URL above
-vi NVIDIA-Linux-x86_64-352.39/kernel/nv-procfs.c
+sh NVIDIA-Linux-x86_64-352.63.run --extract-only
 # Perform manual installation of driver
-( cd NVIDIA-Linux-x86_64-352.39 ; sudo ./nvidia-installer --ui=none --accept-license --no-questions )
+( cd NVIDIA-Linux-x86_64-352.63 ; sudo ./nvidia-installer --ui=none --accept-license --no-questions )
 # Manual installation of toolkit and samples
 sudo sh cuda-linux64-rel-7.5.18-19867135.run
 sh cuda-samples-linux-7.5.18-19867135.run
