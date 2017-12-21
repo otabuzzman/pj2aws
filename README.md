@@ -5,8 +5,8 @@ A lab to bring the [Parallel Java 2 Library](https://www.cs.rit.edu/~ark/pj2.sht
 Download and install [JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (at least 7) and Git Shell. If on Windows download and install [Cygwin](http://cygwin.com/) as well. Consider a full install to avoid problems due to missing packages. Examine [Corkscrew](http://agroman.net/corkscrew/) if there is a company firewall in place (for configuration see Helpful links section below). Setup shell variable `JAVA_HOME` to JDK installation directory. Extend shell variable `PATH` with directory of `java` and `javac` commands. Build pj2aws and run S1 examples (commands with sample values):
 ```
 # On Windows run Cygwin bash
-export JAVA_HOME=/cygdrive/c/program\ files/java/jdk1.7.0_71
-export PATH=/cygdrive/c/program\ files/java/jdk1.7.0_71/bin:$PATH
+export JAVA_HOME=/cygdrive/c/program\ files/java/jdk1.7.0_80
+export PATH=/cygdrive/c/program\ files/java/jdk1.7.0_80/bin:$PATH
 # On Windows switch to Git Shell
 git clone https://github.com/otabuzzman/pj2aws.git
 # On Windows switch back to Cygwin
