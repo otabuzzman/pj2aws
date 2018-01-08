@@ -4,7 +4,7 @@ else
 	linos := 1
 endif
 
-PJ2ID	= 20161014
+PJ2ID	= 20171206
 # begin PJ2ID specific
 JSRC = \
 pj2/lib/edu/rit/crypto/CipherInputStream.java \
@@ -49,6 +49,7 @@ pj2/lib/edu/rit/draw/item/test/Test02.java \
 pj2/lib/edu/rit/draw/item/Text.java \
 pj2/lib/edu/rit/draw/item/Wedge.java \
 pj2/lib/edu/rit/gpu/CacheConfig.java \
+pj2/lib/edu/rit/gpu/CtxSched.java \
 pj2/lib/edu/rit/gpu/Cuda.java \
 pj2/lib/edu/rit/gpu/CudaException.java \
 pj2/lib/edu/rit/gpu/DeinitializedCudaException.java \
@@ -121,6 +122,7 @@ pj2/lib/edu/rit/gpu/test/Test05.java \
 pj2/lib/edu/rit/gpu/test/Test06.java \
 pj2/lib/edu/rit/gpu/test/Test07.java \
 pj2/lib/edu/rit/gpu/UnknownCudaException.java \
+pj2/lib/edu/rit/gpu/UnsupportedLimitCudaException.java \
 pj2/lib/edu/rit/http/HttpRequest.java \
 pj2/lib/edu/rit/http/HttpResponse.java \
 pj2/lib/edu/rit/http/HttpServer.java \
@@ -362,15 +364,24 @@ pj2/lib/edu/rit/pj2/TupleSpace.java \
 pj2/lib/edu/rit/pj2/vbl/BitSet32Vbl.java \
 pj2/lib/edu/rit/pj2/vbl/BitSet64Vbl.java \
 pj2/lib/edu/rit/pj2/vbl/BitSetVbl.java \
+pj2/lib/edu/rit/pj2/vbl/BooleanArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/BooleanVbl.java \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl.java \
+pj2/lib/edu/rit/pj2/vbl/CharArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/CharVbl.java \
+pj2/lib/edu/rit/pj2/vbl/DoubleArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl.java \
+pj2/lib/edu/rit/pj2/vbl/FloatArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/FloatVbl.java \
 pj2/lib/edu/rit/pj2/vbl/HistogramVbl.java \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/IntVbl.java \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/LongVbl.java \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/ShortVbl.java \
+pj2/lib/edu/rit/pj2/vbl/StringArrayVbl.java \
 pj2/lib/edu/rit/pj2/vbl/StringVbl.java \
 pj2/lib/edu/rit/pj2/Vbl.java \
 pj2/lib/edu/rit/pj2/Version.java \
@@ -463,6 +474,7 @@ pj2/lib/edu/rit/util/IntActionResult.java \
 pj2/lib/edu/rit/util/IntList.java \
 pj2/lib/edu/rit/util/IntPair.java \
 pj2/lib/edu/rit/util/IntPredicate.java \
+pj2/lib/edu/rit/util/IntSet.java \
 pj2/lib/edu/rit/util/Logger.java \
 pj2/lib/edu/rit/util/LongAction.java \
 pj2/lib/edu/rit/util/LongActionResult.java \
@@ -490,6 +502,7 @@ pj2/lib/edu/rit/util/test/TestBitSet64.java \
 pj2/lib/edu/rit/util/test/TestIdentityMap.java \
 pj2/lib/edu/rit/util/test/TestMap.java \
 pj2/lib/edu/rit/util/test/TestSet.java \
+pj2/lib/NativeTask.java \
 pj2/lib/pj2.java \
 pj2/lib/ScalePlot.java \
 pj2/lib/View.java \
@@ -545,6 +558,7 @@ pj2/lib/edu/rit/draw/item/Text\$$Alignment.class \
 pj2/lib/edu/rit/draw/item/Text.class \
 pj2/lib/edu/rit/draw/item/Wedge.class \
 pj2/lib/edu/rit/gpu/CacheConfig.class \
+pj2/lib/edu/rit/gpu/CtxSched.class \
 pj2/lib/edu/rit/gpu/Cuda.class \
 pj2/lib/edu/rit/gpu/CudaException.class \
 pj2/lib/edu/rit/gpu/DeinitializedCudaException.class \
@@ -641,6 +655,7 @@ pj2/lib/edu/rit/gpu/test/Test06\$$Test06Kernel.class \
 pj2/lib/edu/rit/gpu/test/Test06.class \
 pj2/lib/edu/rit/gpu/test/Test07.class \
 pj2/lib/edu/rit/gpu/UnknownCudaException.class \
+pj2/lib/edu/rit/gpu/UnsupportedLimitCudaException.class \
 pj2/lib/edu/rit/http/HttpRequest.class \
 pj2/lib/edu/rit/http/HttpResponse\$$1.class \
 pj2/lib/edu/rit/http/HttpResponse\$$Status.class \
@@ -818,6 +833,7 @@ pj2/lib/edu/rit/numeric/Tridiagonal.class \
 pj2/lib/edu/rit/numeric/UniformPrng.class \
 pj2/lib/edu/rit/numeric/VectorFunction.class \
 pj2/lib/edu/rit/numeric/XYSeries\$$1.class \
+pj2/lib/edu/rit/numeric/XYSeries\$$Fit.class \
 pj2/lib/edu/rit/numeric/XYSeries\$$Regression.class \
 pj2/lib/edu/rit/numeric/XYSeries\$$XSeriesView.class \
 pj2/lib/edu/rit/numeric/XYSeries\$$YSeriesView.class \
@@ -834,6 +850,7 @@ pj2/lib/edu/rit/numeric/XYSeriesComplex\$$8.class \
 pj2/lib/edu/rit/numeric/XYSeriesComplex\$$9.class \
 pj2/lib/edu/rit/numeric/XYSeriesComplex.class \
 pj2/lib/edu/rit/numeric/XYZSeries\$$1.class \
+pj2/lib/edu/rit/numeric/XYZSeries\$$Fit.class \
 pj2/lib/edu/rit/numeric/XYZSeries\$$Regression.class \
 pj2/lib/edu/rit/numeric/XYZSeries\$$XSeriesView.class \
 pj2/lib/edu/rit/numeric/XYZSeries\$$XYSeriesView.class \
@@ -1149,10 +1166,21 @@ pj2/lib/edu/rit/pj2/vbl/BitSetVbl\$$MaxSize.class \
 pj2/lib/edu/rit/pj2/vbl/BitSetVbl\$$MinSize.class \
 pj2/lib/edu/rit/pj2/vbl/BitSetVbl\$$Union.class \
 pj2/lib/edu/rit/pj2/vbl/BitSetVbl.class \
+pj2/lib/edu/rit/pj2/vbl/BooleanArrayVbl\$$And.class \
+pj2/lib/edu/rit/pj2/vbl/BooleanArrayVbl\$$Or.class \
+pj2/lib/edu/rit/pj2/vbl/BooleanArrayVbl\$$Xor.class \
+pj2/lib/edu/rit/pj2/vbl/BooleanArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/BooleanVbl\$$And.class \
 pj2/lib/edu/rit/pj2/vbl/BooleanVbl\$$Or.class \
 pj2/lib/edu/rit/pj2/vbl/BooleanVbl\$$Xor.class \
 pj2/lib/edu/rit/pj2/vbl/BooleanVbl.class \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl\$$And.class \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl\$$Min.class \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl\$$Or.class \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl\$$Sum.class \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl\$$Xor.class \
+pj2/lib/edu/rit/pj2/vbl/ByteArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$And.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Min.class \
@@ -1160,20 +1188,38 @@ pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Or.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Sum.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl\$$Xor.class \
 pj2/lib/edu/rit/pj2/vbl/ByteVbl.class \
+pj2/lib/edu/rit/pj2/vbl/CharArrayVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/CharArrayVbl\$$Min.class \
+pj2/lib/edu/rit/pj2/vbl/CharArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/CharVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/CharVbl\$$Min.class \
 pj2/lib/edu/rit/pj2/vbl/CharVbl.class \
+pj2/lib/edu/rit/pj2/vbl/DoubleArrayVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/DoubleArrayVbl\$$Min.class \
+pj2/lib/edu/rit/pj2/vbl/DoubleArrayVbl\$$Sum.class \
+pj2/lib/edu/rit/pj2/vbl/DoubleArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl\$$Mean.class \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl\$$Min.class \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl\$$Sum.class \
 pj2/lib/edu/rit/pj2/vbl/DoubleVbl.class \
+pj2/lib/edu/rit/pj2/vbl/FloatArrayVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/FloatArrayVbl\$$Min.class \
+pj2/lib/edu/rit/pj2/vbl/FloatArrayVbl\$$Sum.class \
+pj2/lib/edu/rit/pj2/vbl/FloatArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/FloatVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/FloatVbl\$$Mean.class \
 pj2/lib/edu/rit/pj2/vbl/FloatVbl\$$Min.class \
 pj2/lib/edu/rit/pj2/vbl/FloatVbl\$$Sum.class \
 pj2/lib/edu/rit/pj2/vbl/FloatVbl.class \
 pj2/lib/edu/rit/pj2/vbl/HistogramVbl.class \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl\$$And.class \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl\$$Min.class \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl\$$Or.class \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl\$$Sum.class \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl\$$Xor.class \
+pj2/lib/edu/rit/pj2/vbl/IntArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/IntVbl\$$And.class \
 pj2/lib/edu/rit/pj2/vbl/IntVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/IntVbl\$$Min.class \
@@ -1181,6 +1227,13 @@ pj2/lib/edu/rit/pj2/vbl/IntVbl\$$Or.class \
 pj2/lib/edu/rit/pj2/vbl/IntVbl\$$Sum.class \
 pj2/lib/edu/rit/pj2/vbl/IntVbl\$$Xor.class \
 pj2/lib/edu/rit/pj2/vbl/IntVbl.class \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl\$$And.class \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl\$$Min.class \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl\$$Or.class \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl\$$Sum.class \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl\$$Xor.class \
+pj2/lib/edu/rit/pj2/vbl/LongArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/LongVbl\$$And.class \
 pj2/lib/edu/rit/pj2/vbl/LongVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/LongVbl\$$Min.class \
@@ -1188,6 +1241,13 @@ pj2/lib/edu/rit/pj2/vbl/LongVbl\$$Or.class \
 pj2/lib/edu/rit/pj2/vbl/LongVbl\$$Sum.class \
 pj2/lib/edu/rit/pj2/vbl/LongVbl\$$Xor.class \
 pj2/lib/edu/rit/pj2/vbl/LongVbl.class \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl\$$And.class \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl\$$Max.class \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl\$$Min.class \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl\$$Or.class \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl\$$Sum.class \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl\$$Xor.class \
+pj2/lib/edu/rit/pj2/vbl/ShortArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/ShortVbl\$$And.class \
 pj2/lib/edu/rit/pj2/vbl/ShortVbl\$$Max.class \
 pj2/lib/edu/rit/pj2/vbl/ShortVbl\$$Min.class \
@@ -1195,6 +1255,7 @@ pj2/lib/edu/rit/pj2/vbl/ShortVbl\$$Or.class \
 pj2/lib/edu/rit/pj2/vbl/ShortVbl\$$Sum.class \
 pj2/lib/edu/rit/pj2/vbl/ShortVbl\$$Xor.class \
 pj2/lib/edu/rit/pj2/vbl/ShortVbl.class \
+pj2/lib/edu/rit/pj2/vbl/StringArrayVbl.class \
 pj2/lib/edu/rit/pj2/vbl/StringVbl.class \
 pj2/lib/edu/rit/pj2/Vbl.class \
 pj2/lib/edu/rit/pj2/Version.class \
@@ -1342,6 +1403,8 @@ pj2/lib/edu/rit/swing/Viewable.class \
 pj2/lib/edu/rit/util/Action.class \
 pj2/lib/edu/rit/util/ActionResult.class \
 pj2/lib/edu/rit/util/AList\$$1.class \
+pj2/lib/edu/rit/util/AList\$$Searcher.class \
+pj2/lib/edu/rit/util/AList\$$Sorter.class \
 pj2/lib/edu/rit/util/AList.class \
 pj2/lib/edu/rit/util/BitSet.class \
 pj2/lib/edu/rit/util/BitSet32.class \
@@ -1370,6 +1433,7 @@ pj2/lib/edu/rit/util/IntActionResult.class \
 pj2/lib/edu/rit/util/IntList.class \
 pj2/lib/edu/rit/util/IntPair.class \
 pj2/lib/edu/rit/util/IntPredicate.class \
+pj2/lib/edu/rit/util/IntSet.class \
 pj2/lib/edu/rit/util/Logger.class \
 pj2/lib/edu/rit/util/LongAction.class \
 pj2/lib/edu/rit/util/LongActionResult.class \
@@ -1454,6 +1518,7 @@ pj2/lib/edu/rit/util/test/TestMap\$$1.class \
 pj2/lib/edu/rit/util/test/TestMap.class \
 pj2/lib/edu/rit/util/test/TestSet\$$1.class \
 pj2/lib/edu/rit/util/test/TestSet.class \
+pj2/lib/NativeTask.class \
 pj2/lib/pj2\$$1.class \
 pj2/lib/pj2.class \
 pj2/lib/ScalePlot\$$1.class \

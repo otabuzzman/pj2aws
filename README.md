@@ -26,7 +26,7 @@ make -j S1run
 
 Errors stating insufficient ressources might have their cause in `cores` parameter of respective example. Values given to `cores` must not be greater than actual number of available cores. If those errors occur lookup example in `Makefile` and check parameters (examples had been extracted by `fetchCmdExamplesFromTextbook.sh` from textbook and afterwards inserted into `Makefile` without changes. Parameters might thus need adjustments according to local configurations).
 
-To build the native library (the *bridge* from PJ2 to CUDA) with this step, that is without a CUDA capable device, examine [CUDAcons repository](https://github.com/otabuzzman/cudacons.git) and configure accordingly. Afterwards run `make pj2/lib/lib/EduRitGpuCuda.dll`. If on Linux run `make pj2/lib/libEduRitGpuCuda.so`. CUDAcons also contains hints for compiling kernels without device.
+To build the native library (the *bridge* from PJ2 to CUDA) with this step, that is without a CUDA capable device, examine [CUDAcons repository](https://github.com/otabuzzman/cudacons.git) and configure accordingly. Afterwards run `make pj2/lib/EduRitGpuCuda.dll`. If on Linux run `make pj2/lib/libEduRitGpuCuda.so`. CUDAcons also contains hints for compiling kernels without device.
 
 #### Step 2. Move to AWS [T2 instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html) (1 year cost-free)
 Launch a T2 instance as described in AWS [user guide](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/concepts.html) sections for [setup](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html) and [getting started](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/EC2_GetStarted.html). Follow wizzard and configure instance to *Auto-assign Public IP* (choose *Use subnet setting (Enable)*). Set `Alias` tag to a descriptive value that might serve as a hostname too (e.g. tracker). Set `Created` tag to date/ time of instance creation (e.g. value of *Attachment time* attribute of first *Block device* or in case of multiple block devices the one that equals *Root device*). Configure AWS Command Line Interface (in particular public/ private access keys) according to [getting started guide](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html). Set `HTTP_PROXY` and `HTTPS_PROXY` appropriately if there is a company firewall in place. SSH connect to instance and run S2 examples:
@@ -183,14 +183,14 @@ Updates to PJ2 have an update specific value which is the numerical part in the 
 
 In case of an update to PJ2 1) run `make tidy` 2) update `PJ2ID` variable in `Makefile` 3) run `make init` and finally 4) replace embraced variables with output of `make vars`.
 
-Apply a recursive `diff` to find new and changed files. Especially check if patched files are affected from update.
+Apply a recursive `diff -qr` to find new and changed files. Especially check if patched files are affected from update. Use `diff -u` to make new patch files.
 
 #### Cues on PJ2 patches
 Run `patch -b -p0 < <patch file>` to apply patch files given below.
 
 |Patch file|Description|
 |---|---|
-|Tracker_20160530.diff|Extend Tracker to use public IP address for web interface access.|
+|Tracker_20171206.diff|Extend Tracker to use public IP address for web interface access.|
 
 #### Helpful links
 - [Textbook](https://www.cs.rit.edu/~ark/bcbd/) *BIG CPU, BIG DATA* by Alan Kaminsky.
