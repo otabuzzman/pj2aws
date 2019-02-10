@@ -26,7 +26,7 @@ make -j S1run
 
 Errors stating insufficient ressources might have their cause in `cores` parameter of respective example. Values given to `cores` must not be greater than actual number of available cores. If those errors occur lookup example in `Makefile` and check parameters (examples had been extracted by `fetchCmdExamplesFromTextbook.sh` from textbook and afterwards inserted into `Makefile` without changes. Parameters might thus need adjustments according to local configurations).
 
-To build the native library (the *bridge* from PJ2 to CUDA) with this step, that is without a CUDA capable device, examine [CUDAcons repository](https://github.com/otabuzzman/cudacons.git) and configure accordingly. Afterwards run `make pj2/lib/EduRitGpuCuda.dll`. If on Linux run `make pj2/lib/libEduRitGpuCuda.so`. CUDAcons also contains hints for compiling kernels without device.
+To build the native library (the *bridge* from PJ2 to CUDA) with this step, that is without a CUDA capable device, examine [CUDAcons repository](https://github.com/otabuzzman/cudacons.git) and configure accordingly. Afterwards run `make pj2/lib/EduRitGpuCuda.dll`. CUDAcons also contains hints for compiling kernels without device.
 
 #### Step 2. Move to AWS [T2 instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html) (1 year cost-free)
 Launch a T2 instance as described in AWS [user guide](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/concepts.html) sections for [setup](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html) and [getting started](http://docs.aws.amazon.com/de_de/AWSEC2/latest/UserGuide/EC2_GetStarted.html). Follow wizzard and configure instance to *Auto-assign Public IP* (choose *Use subnet setting (Enable)*). Set `Alias` tag to a descriptive value that might serve as a hostname too (e.g. tracker). Set `Created` tag to date/ time of instance creation (e.g. value of *Attachment time* attribute of first *Block device* or in case of multiple block devices the one that equals *Root device*). Configure AWS Command Line Interface (in particular public/ private access keys) according to [getting started guide](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html). Set `HTTP_PROXY` and `HTTPS_PROXY` appropriately if there is a company firewall in place. SSH connect to instance and run S2 examples:
@@ -34,9 +34,9 @@ Launch a T2 instance as described in AWS [user guide](http://docs.aws.amazon.com
 # List installed Java packages
 sudo yum list installed java*
 # Install JDK if missing
-sudo yum install java-1.7.0-openjdk-devel.x86_64
+sudo yum install java-1.8.0-openjdk-devel.x86_64
 # Set JDK Installation folder
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.111.x86_64
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 # Install Git shell
 sudo yum install git
 # Install patch utility
@@ -143,9 +143,9 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 # List installed Java packages
 sudo yum list installed java*
 # Install JDK if missing
-sudo yum install java-1.7.0-openjdk-devel.x86_64
+sudo yum install java-1.8.0-openjdk-devel.x86_64
 # Set JDK installation folder
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.111.x86_64
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
 # Install Git shell
 sudo yum install git
 # Download pj2aws repository
@@ -156,6 +156,8 @@ export LD_LIBRARY_PATH=pj2/lib:$LD_LIBRARY_PATH
 # Build pj2aws
 cd pj2aws
 make pj2 jclean cclean
+# rm pj2/lib/libEduRitGpuCuda.so
+make pj2/lib/libEduRitGpuCuda.so
 make S3build
 # Run S3 examples
 make S3run 2>&1 | tee S3run.out
