@@ -193,6 +193,7 @@ Run `patch -b -p0 < <patch file>` to apply patch files given below.
 |Patch file|Description|
 |---|---|
 |Tracker_20171206.diff|Extend Tracker to use public IP address for web interface access.|
+|Tracker_20181128.diff|Fix Tracker extension to fit Java 1.8 behaviour.|
 
 #### Helpful links
 - [Textbook](https://www.cs.rit.edu/~ark/bcbd/) *BIG CPU, BIG DATA* by Alan Kaminsky.

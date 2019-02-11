@@ -4,7 +4,7 @@ else
 	linos := 1
 endif
 
-PJ2ID	= 20171206
+PJ2ID	= 20181128
 # begin PJ2ID specific
 JSRC = \
 pj2/lib/edu/rit/crypto/CipherInputStream.java \
@@ -94,6 +94,7 @@ pj2/lib/edu/rit/gpu/GpuShortArray.java \
 pj2/lib/edu/rit/gpu/GpuShortMatrix.java \
 pj2/lib/edu/rit/gpu/GpuShortVbl.java \
 pj2/lib/edu/rit/gpu/GpuStructArray.java \
+pj2/lib/edu/rit/gpu/GpuStructMatrix.java \
 pj2/lib/edu/rit/gpu/GpuStructVbl.java \
 pj2/lib/edu/rit/gpu/GpuVbl.java \
 pj2/lib/edu/rit/gpu/InvalidContextCudaException.java \
@@ -240,8 +241,12 @@ pj2/lib/edu/rit/numeric/XYZSeries.java \
 pj2/lib/edu/rit/pj2/Backend.java \
 pj2/lib/edu/rit/pj2/Chunk.java \
 pj2/lib/edu/rit/pj2/Debug.java \
+pj2/lib/edu/rit/pj2/example/AMGraph.java \
+pj2/lib/edu/rit/pj2/example/AMGraph64.java \
 pj2/lib/edu/rit/pj2/example/BCAClu.java \
 pj2/lib/edu/rit/pj2/example/BCASmp.java \
+pj2/lib/edu/rit/pj2/example/BigPrimeClu.java \
+pj2/lib/edu/rit/pj2/example/BigPrimeSeq.java \
 pj2/lib/edu/rit/pj2/example/CCACell.java \
 pj2/lib/edu/rit/pj2/example/CCAClu.java \
 pj2/lib/edu/rit/pj2/example/CCASeq.java \
@@ -249,6 +254,9 @@ pj2/lib/edu/rit/pj2/example/CCASmp.java \
 pj2/lib/edu/rit/pj2/example/HamCycClu.java \
 pj2/lib/edu/rit/pj2/example/HamCycSeq.java \
 pj2/lib/edu/rit/pj2/example/HamCycSmp.java \
+pj2/lib/edu/rit/pj2/example/HamCycState.java \
+pj2/lib/edu/rit/pj2/example/HamCycStateClu.java \
+pj2/lib/edu/rit/pj2/example/HamCycStateSmp.java \
 pj2/lib/edu/rit/pj2/example/MandelbrotClu.java \
 pj2/lib/edu/rit/pj2/example/MandelbrotSeq.java \
 pj2/lib/edu/rit/pj2/example/MandelbrotSeq3.java \
@@ -268,13 +276,13 @@ pj2/lib/edu/rit/pj2/example/MinVerCovSeq3.java \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp.java \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp2.java \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp3.java \
+pj2/lib/edu/rit/pj2/example/OddPrimeList.java \
 pj2/lib/edu/rit/pj2/example/PiClu.java \
 pj2/lib/edu/rit/pj2/example/PiSeq.java \
 pj2/lib/edu/rit/pj2/example/PiSmp.java \
 pj2/lib/edu/rit/pj2/example/PiSmp2.java \
 pj2/lib/edu/rit/pj2/example/PrimeSeq.java \
 pj2/lib/edu/rit/pj2/example/PrimeSmp.java \
-pj2/lib/edu/rit/pj2/example/RandomGraph.java \
 pj2/lib/edu/rit/pj2/example/StatTestSeq.java \
 pj2/lib/edu/rit/pj2/example/StatTestSmp.java \
 pj2/lib/edu/rit/pj2/example/TotientClu.java \
@@ -288,6 +296,7 @@ pj2/lib/edu/rit/pj2/IntParallelForLoop.java \
 pj2/lib/edu/rit/pj2/JarClassLoader.java \
 pj2/lib/edu/rit/pj2/Job.java \
 pj2/lib/edu/rit/pj2/JobOutputStream.java \
+pj2/lib/edu/rit/pj2/JobWorkQueue.java \
 pj2/lib/edu/rit/pj2/LongChunk.java \
 pj2/lib/edu/rit/pj2/LongLoop.java \
 pj2/lib/edu/rit/pj2/LongParallelForLoop.java \
@@ -464,6 +473,7 @@ pj2/lib/edu/rit/util/FloatAction.java \
 pj2/lib/edu/rit/util/FloatActionResult.java \
 pj2/lib/edu/rit/util/FloatList.java \
 pj2/lib/edu/rit/util/FloatPredicate.java \
+pj2/lib/edu/rit/util/GraphSpec.java \
 pj2/lib/edu/rit/util/Heartbeat.java \
 pj2/lib/edu/rit/util/Hex.java \
 pj2/lib/edu/rit/util/IdentityMap.java \
@@ -474,7 +484,9 @@ pj2/lib/edu/rit/util/IntActionResult.java \
 pj2/lib/edu/rit/util/IntList.java \
 pj2/lib/edu/rit/util/IntPair.java \
 pj2/lib/edu/rit/util/IntPredicate.java \
+pj2/lib/edu/rit/util/IntQueue.java \
 pj2/lib/edu/rit/util/IntSet.java \
+pj2/lib/edu/rit/util/IntStack.java \
 pj2/lib/edu/rit/util/Logger.java \
 pj2/lib/edu/rit/util/LongAction.java \
 pj2/lib/edu/rit/util/LongActionResult.java \
@@ -482,6 +494,8 @@ pj2/lib/edu/rit/util/LongList.java \
 pj2/lib/edu/rit/util/LongMultiSet.java \
 pj2/lib/edu/rit/util/LongPair.java \
 pj2/lib/edu/rit/util/LongPredicate.java \
+pj2/lib/edu/rit/util/LongQueue.java \
+pj2/lib/edu/rit/util/LongStack.java \
 pj2/lib/edu/rit/util/Map.java \
 pj2/lib/edu/rit/util/MultiSet.java \
 pj2/lib/edu/rit/util/Packing.java \
@@ -491,11 +505,15 @@ pj2/lib/edu/rit/util/Plural.java \
 pj2/lib/edu/rit/util/Predicate.java \
 pj2/lib/edu/rit/util/PrintStreamLogger.java \
 pj2/lib/edu/rit/util/PriorityQueue.java \
+pj2/lib/edu/rit/util/Queue.java \
 pj2/lib/edu/rit/util/Random.java \
+pj2/lib/edu/rit/util/RandomGraph.java \
 pj2/lib/edu/rit/util/RandomSubset.java \
 pj2/lib/edu/rit/util/Searching.java \
 pj2/lib/edu/rit/util/Set.java \
 pj2/lib/edu/rit/util/Sorting.java \
+pj2/lib/edu/rit/util/Stack.java \
+pj2/lib/edu/rit/util/test/PrintGraph.java \
 pj2/lib/edu/rit/util/test/TestBitSet.java \
 pj2/lib/edu/rit/util/test/TestBitSet32.java \
 pj2/lib/edu/rit/util/test/TestBitSet64.java \
@@ -621,6 +639,7 @@ pj2/lib/edu/rit/gpu/GpuShortArray.class \
 pj2/lib/edu/rit/gpu/GpuShortMatrix.class \
 pj2/lib/edu/rit/gpu/GpuShortVbl.class \
 pj2/lib/edu/rit/gpu/GpuStructArray.class \
+pj2/lib/edu/rit/gpu/GpuStructMatrix.class \
 pj2/lib/edu/rit/gpu/GpuStructVbl.class \
 pj2/lib/edu/rit/gpu/GpuVbl.class \
 pj2/lib/edu/rit/gpu/InvalidContextCudaException.class \
@@ -864,6 +883,8 @@ pj2/lib/edu/rit/pj2/Backend\$$BackendThread.class \
 pj2/lib/edu/rit/pj2/Backend.class \
 pj2/lib/edu/rit/pj2/Chunk.class \
 pj2/lib/edu/rit/pj2/Debug.class \
+pj2/lib/edu/rit/pj2/example/AMGraph.class \
+pj2/lib/edu/rit/pj2/example/AMGraph64.class \
 pj2/lib/edu/rit/pj2/example/BCAClu\$$CellTuple.class \
 pj2/lib/edu/rit/pj2/example/BCAClu\$$OutputTask.class \
 pj2/lib/edu/rit/pj2/example/BCAClu\$$PopCountTuple.class \
@@ -872,6 +893,13 @@ pj2/lib/edu/rit/pj2/example/BCAClu\$$WorkerTask.class \
 pj2/lib/edu/rit/pj2/example/BCAClu.class \
 pj2/lib/edu/rit/pj2/example/BCASmp\$$1.class \
 pj2/lib/edu/rit/pj2/example/BCASmp.class \
+pj2/lib/edu/rit/pj2/example/BigPrimeClu\$$ProthTask\$$1.class \
+pj2/lib/edu/rit/pj2/example/BigPrimeClu\$$ProthTask.class \
+pj2/lib/edu/rit/pj2/example/BigPrimeClu\$$ProthTuple.class \
+pj2/lib/edu/rit/pj2/example/BigPrimeClu\$$TrialDivisionTask\$$1.class \
+pj2/lib/edu/rit/pj2/example/BigPrimeClu\$$TrialDivisionTask.class \
+pj2/lib/edu/rit/pj2/example/BigPrimeClu.class \
+pj2/lib/edu/rit/pj2/example/BigPrimeSeq.class \
 pj2/lib/edu/rit/pj2/example/CCACell.class \
 pj2/lib/edu/rit/pj2/example/CCAClu\$$CellTuple.class \
 pj2/lib/edu/rit/pj2/example/CCAClu\$$OutputTask\$$1.class \
@@ -890,15 +918,14 @@ pj2/lib/edu/rit/pj2/example/CCASmp\$$3.class \
 pj2/lib/edu/rit/pj2/example/CCASmp.class \
 pj2/lib/edu/rit/pj2/example/HamCycClu\$$ResultTask.class \
 pj2/lib/edu/rit/pj2/example/HamCycClu\$$SearchTask\$$1.class \
-pj2/lib/edu/rit/pj2/example/HamCycClu\$$SearchTask\$$State.class \
 pj2/lib/edu/rit/pj2/example/HamCycClu\$$SearchTask.class \
-pj2/lib/edu/rit/pj2/example/HamCycClu\$$StateTuple.class \
 pj2/lib/edu/rit/pj2/example/HamCycClu.class \
-pj2/lib/edu/rit/pj2/example/HamCycSeq\$$State.class \
 pj2/lib/edu/rit/pj2/example/HamCycSeq.class \
 pj2/lib/edu/rit/pj2/example/HamCycSmp\$$1.class \
-pj2/lib/edu/rit/pj2/example/HamCycSmp\$$State.class \
 pj2/lib/edu/rit/pj2/example/HamCycSmp.class \
+pj2/lib/edu/rit/pj2/example/HamCycState.class \
+pj2/lib/edu/rit/pj2/example/HamCycStateClu.class \
+pj2/lib/edu/rit/pj2/example/HamCycStateSmp.class \
 pj2/lib/edu/rit/pj2/example/MandelbrotClu\$$OutputTask\$$1.class \
 pj2/lib/edu/rit/pj2/example/MandelbrotClu\$$OutputTask\$$2.class \
 pj2/lib/edu/rit/pj2/example/MandelbrotClu\$$OutputTask.class \
@@ -928,6 +955,7 @@ pj2/lib/edu/rit/pj2/example/MineCoinClu3.class \
 pj2/lib/edu/rit/pj2/example/MineCoinSeq.class \
 pj2/lib/edu/rit/pj2/example/MineCoinSmp\$$1.class \
 pj2/lib/edu/rit/pj2/example/MineCoinSmp.class \
+pj2/lib/edu/rit/pj2/example/MinVerCovClu3\$$ReduceTask\$$1.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovClu3\$$ReduceTask.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovClu3\$$WorkerTask\$$1.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovClu3\$$WorkerTask.class \
@@ -938,15 +966,22 @@ pj2/lib/edu/rit/pj2/example/MinVerCovDist\$$WorkerTask\$$1\$$1.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovDist\$$WorkerTask\$$1.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovDist\$$WorkerTask.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovDist.class \
+pj2/lib/edu/rit/pj2/example/MinVerCovSeq\$$1.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSeq.class \
+pj2/lib/edu/rit/pj2/example/MinVerCovSeq2\$$1.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSeq2.class \
+pj2/lib/edu/rit/pj2/example/MinVerCovSeq3\$$1.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSeq3.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp\$$1.class \
+pj2/lib/edu/rit/pj2/example/MinVerCovSmp\$$2.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp2\$$1.class \
+pj2/lib/edu/rit/pj2/example/MinVerCovSmp2\$$2.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp2.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp3\$$1.class \
+pj2/lib/edu/rit/pj2/example/MinVerCovSmp3\$$2.class \
 pj2/lib/edu/rit/pj2/example/MinVerCovSmp3.class \
+pj2/lib/edu/rit/pj2/example/OddPrimeList.class \
 pj2/lib/edu/rit/pj2/example/PiClu\$$ReduceTask.class \
 pj2/lib/edu/rit/pj2/example/PiClu\$$WorkerTask\$$1.class \
 pj2/lib/edu/rit/pj2/example/PiClu\$$WorkerTask.class \
@@ -959,7 +994,6 @@ pj2/lib/edu/rit/pj2/example/PiSmp2.class \
 pj2/lib/edu/rit/pj2/example/PrimeSeq.class \
 pj2/lib/edu/rit/pj2/example/PrimeSmp\$$1.class \
 pj2/lib/edu/rit/pj2/example/PrimeSmp.class \
-pj2/lib/edu/rit/pj2/example/RandomGraph.class \
 pj2/lib/edu/rit/pj2/example/StatTestSeq\$$1.class \
 pj2/lib/edu/rit/pj2/example/StatTestSeq.class \
 pj2/lib/edu/rit/pj2/example/StatTestSmp\$$1.class \
@@ -1003,6 +1037,11 @@ pj2/lib/edu/rit/pj2/Job\$$TrackerHeartbeat.class \
 pj2/lib/edu/rit/pj2/Job\$$TupleTakeInfo.class \
 pj2/lib/edu/rit/pj2/Job.class \
 pj2/lib/edu/rit/pj2/JobOutputStream.class \
+pj2/lib/edu/rit/pj2/JobWorkQueue\$$1.class \
+pj2/lib/edu/rit/pj2/JobWorkQueue\$$ControlTuple.class \
+pj2/lib/edu/rit/pj2/JobWorkQueue\$$WaitTemplate.class \
+pj2/lib/edu/rit/pj2/JobWorkQueue\$$WorkItemTuple.class \
+pj2/lib/edu/rit/pj2/JobWorkQueue.class \
 pj2/lib/edu/rit/pj2/LongChunk.class \
 pj2/lib/edu/rit/pj2/LongLoop.class \
 pj2/lib/edu/rit/pj2/LongParallelForLoop.class \
@@ -1421,6 +1460,8 @@ pj2/lib/edu/rit/util/FloatAction.class \
 pj2/lib/edu/rit/util/FloatActionResult.class \
 pj2/lib/edu/rit/util/FloatList.class \
 pj2/lib/edu/rit/util/FloatPredicate.class \
+pj2/lib/edu/rit/util/GraphSpec\$$Edge.class \
+pj2/lib/edu/rit/util/GraphSpec.class \
 pj2/lib/edu/rit/util/Heartbeat\$$1.class \
 pj2/lib/edu/rit/util/Heartbeat\$$2.class \
 pj2/lib/edu/rit/util/Heartbeat.class \
@@ -1433,7 +1474,9 @@ pj2/lib/edu/rit/util/IntActionResult.class \
 pj2/lib/edu/rit/util/IntList.class \
 pj2/lib/edu/rit/util/IntPair.class \
 pj2/lib/edu/rit/util/IntPredicate.class \
+pj2/lib/edu/rit/util/IntQueue.class \
 pj2/lib/edu/rit/util/IntSet.class \
+pj2/lib/edu/rit/util/IntStack.class \
 pj2/lib/edu/rit/util/Logger.class \
 pj2/lib/edu/rit/util/LongAction.class \
 pj2/lib/edu/rit/util/LongActionResult.class \
@@ -1450,6 +1493,8 @@ pj2/lib/edu/rit/util/LongMultiSet\$$9.class \
 pj2/lib/edu/rit/util/LongMultiSet.class \
 pj2/lib/edu/rit/util/LongPair.class \
 pj2/lib/edu/rit/util/LongPredicate.class \
+pj2/lib/edu/rit/util/LongQueue.class \
+pj2/lib/edu/rit/util/LongStack.class \
 pj2/lib/edu/rit/util/Map\$$1.class \
 pj2/lib/edu/rit/util/Map\$$10.class \
 pj2/lib/edu/rit/util/Map\$$2.class \
@@ -1479,7 +1524,9 @@ pj2/lib/edu/rit/util/Predicate.class \
 pj2/lib/edu/rit/util/PrintStreamLogger.class \
 pj2/lib/edu/rit/util/PriorityQueue\$$Item.class \
 pj2/lib/edu/rit/util/PriorityQueue.class \
+pj2/lib/edu/rit/util/Queue.class \
 pj2/lib/edu/rit/util/Random.class \
+pj2/lib/edu/rit/util/RandomGraph.class \
 pj2/lib/edu/rit/util/RandomSubset\$$1.class \
 pj2/lib/edu/rit/util/RandomSubset\$$DenseHelper.class \
 pj2/lib/edu/rit/util/RandomSubset\$$Helper.class \
@@ -1506,6 +1553,8 @@ pj2/lib/edu/rit/util/Sorting\$$Object.class \
 pj2/lib/edu/rit/util/Sorting\$$Short.class \
 pj2/lib/edu/rit/util/Sorting\$$Sortable.class \
 pj2/lib/edu/rit/util/Sorting.class \
+pj2/lib/edu/rit/util/Stack.class \
+pj2/lib/edu/rit/util/test/PrintGraph.class \
 pj2/lib/edu/rit/util/test/TestBitSet\$$1.class \
 pj2/lib/edu/rit/util/test/TestBitSet.class \
 pj2/lib/edu/rit/util/test/TestBitSet32\$$1.class \
@@ -1617,8 +1666,6 @@ S1EX = \
 	TotientSmp-1 \
 	ZombieSeq-1 \
 	ZombieSmp-1 \
-	MinVerCovSeq \
-	MinVerCovSmp \
 	MandelbrotSeq \
 
 S1build: $(JCLS)
@@ -1641,8 +1688,6 @@ S2EX = \
 	TotientSmp-1 \
 	ZombieSeq-1 \
 	ZombieSmp-1 \
-	MinVerCovSeq \
-	MinVerCovSmp \
 	MandelbrotSeq \
 
 S2build: $(JCLS)
@@ -1695,8 +1740,6 @@ S3run: $(S3EX)
 
 # intermediate files
 clean:
-	# example input files
-	rm -f g31.txt g40.txt
 	# example output files
 	rm -f zom200_0.txt zom200_4.txt
 	rm -f ms3200.png
