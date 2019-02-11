@@ -37,6 +37,7 @@ sudo yum list installed java*
 sudo yum install java-1.8.0-openjdk-devel.x86_64
 # Set JDK Installation folder
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
 # Install Git shell
 sudo yum install git
 # Install patch utility
@@ -70,7 +71,7 @@ The remaining instances are backend nodes. Execute a Launcher on each of them:
 ```
 # Get private IP address of frontend node
 frontend_private_dns=`aws ec2 describe-instances --instance-ids i-04eaedbe77fce1a81 --query Reservations[0].Instances[0].PrivateDnsName`
-export LFLAGS="tracker=$frontend_private_dns command=\"java -classpath pj2/lib\" cores=`nproc`"
+export LFLAGS="tracker=$frontend_private_dns command=\"java -classpath pj2/lib\" name=`uname -n` cores=`nproc`"
 make Lexec
 ```
 
@@ -146,6 +147,7 @@ sudo yum list installed java*
 sudo yum install java-1.8.0-openjdk-devel.x86_64
 # Set JDK installation folder
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
 # Install Git shell
 sudo yum install git
 # Download pj2aws repository
@@ -156,7 +158,6 @@ export LD_LIBRARY_PATH=pj2/lib:$LD_LIBRARY_PATH
 # Build pj2aws
 cd pj2aws
 make pj2 jclean cclean
-# rm pj2/lib/libEduRitGpuCuda.so
 make pj2/lib/libEduRitGpuCuda.so
 make S3build
 # Run S3 examples

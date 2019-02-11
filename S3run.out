@@ -1,3 +1,13 @@
+java -Djava.library.path=pj2/lib -classpath pj2/lib pj2 debug=makespan gpus=1 \
+edu.rit.gpu.example.PiGpu2 \
+142857 100000000000
+pi = 4*78539833620/100000000000 = 3.141593345
+Job 1 makespan 27036 msec
+java -Djava.library.path=pj2/lib -classpath pj2/lib pj2 debug=makespan gpus=2 \
+edu.rit.gpu.example.PiGpu2 \
+142857 200000000000
+pi = 4*157079627958/200000000000 = 3.141592559
+Job 1 makespan 53744 msec
 java -Djava.library.path=pj2/lib -classpath pj2/lib pj2 debug=makespan \
 edu.rit.gpu.example.ZombieGpu \
 142857 100 5.00 0.5 10 0.00001 0.001 0 0 
@@ -201,7 +211,7 @@ edu.rit.gpu.example.ZombieGpu \
 15869	97	2.49139	2.12763
 15869	98	2.23286	2.80197
 15869	99	2.85405	3.07343
-Job 1 makespan 1817 msec
+Job 1 makespan 3471 msec
 java -Djava.library.path=pj2/lib -classpath pj2/lib pj2 debug=makespan \
 edu.rit.gpu.example.ZombieGpu2 \
 142857 100 5.00 0.5 10 0.00001 0.001 0 0 
@@ -405,4 +415,4 @@ edu.rit.gpu.example.ZombieGpu2 \
 15869	97	2.49139	2.12763
 15869	98	2.23286	2.80197
 15869	99	2.85405	3.07343
-Job 1 makespan 1805 msec
+Job 1 makespan 3795 msec
