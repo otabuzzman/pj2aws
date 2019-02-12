@@ -170,7 +170,7 @@ Execute a Launcher on G2 and add instance as a further backend node to PJ2 clust
 aws configure
 # Get private IP address of frontend node
 frontend_private_dns=`aws ec2 describe-instances --instance-ids i-04eaedbe77fce1a81 --query Reservations[0].Instances[0].PrivateDnsName`
-export LFLAGS="tracker=$frontend_private_dns command=\"java -classpath pj2/lib\" cores=`nproc` gpus=1"
+export LFLAGS="tracker=$frontend_private_dns command=\"java -classpath pj2/lib\" name=`uname -n` cores=`nproc` gpus=1"
 make Lexec
 ```
 
