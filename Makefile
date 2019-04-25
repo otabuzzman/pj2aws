@@ -1605,12 +1605,16 @@ CUOBJ	= $(patsubst %.cu,%.ptx,$(CUSRC))
 
 SRCURL	= https://www.cs.rit.edu/~ark/pj2src_$(PJ2ID).jar
 SRCJAR	= pj2src.jar
+BINURL	= https://www.cs.rit.edu/~ark/pj2_$(PJ2ID).jar
+BINJAR	= pj2.jar
 
 # must equal top-level directory in $(SRCJAR)
 srcdir	= pj2
 
 $(SRCJAR):
 	wget -q -O $@ $(SRCURL)
+$(BINJAR):
+	wget -q -O $@ $(SRCBIN)
 
 $(srcdir): $(SRCJAR)
 	jar xf $<
@@ -1755,7 +1759,7 @@ lclean: clean
 
 # real clean
 rclean: lclean
-	rm -f $(SRCJAR)
+	rm -f $(SRCJAR) $(BINJAR)
 
 tidy: rclean
 
