@@ -1602,19 +1602,28 @@ pj2/lib/edu/rit/gpu/test/Test06.cu \
 
 JCLS	= $(foreach d,$(sort $(dir $(JSRC))),$(d)*.class)
 CUOBJ	= $(patsubst %.cu,%.ptx,$(CUSRC))
+ifdef winos
+CULIB	= $(srcdir)/lib/EduRitGpuCuda.dll
+else
+CULIB	= $(srcdir)/lib/libEduRitGpuCuda.so
+endif
 
 SRCURL	= https://www.cs.rit.edu/~ark/pj2src_$(PJ2ID).jar
 SRCJAR	= pj2src.jar
-BINURL	= https://www.cs.rit.edu/~ark/pj2_$(PJ2ID).jar
+
 BINJAR	= pj2.jar
+BINLST	= pj2.lst
 
 # must equal top-level directory in $(SRCJAR)
 srcdir	= pj2
 
 $(SRCJAR):
 	wget -q -O $@ $(SRCURL)
-$(BINJAR):
-	wget -q -O $@ $(SRCBIN)
+
+$(BINJAR): $(BINLST)
+	( cd $(srcdir)/lib ; jar c @../../$< ) >$@
+$(BINLST):
+	echo $(subst $(srcdir)/lib/,,$(JOBJ)) >$@
 
 $(srcdir): $(SRCJAR)
 	jar xf $<
@@ -1622,7 +1631,7 @@ $(srcdir): $(SRCJAR)
 init: $(srcdir)
 	javac \
 	-Xlint:unchecked \
-	`find $^ -name '*.java' -print`
+	`find $< -name '*.java' -print`
 
 vars:
 	@echo JSRC = \\
@@ -1706,7 +1715,7 @@ S2run: $(S2EX)
 	$${NVCC:-nvcc} -ptx -arch compute_20 -o $@ $<
 
 ifdef winos
-$(srcdir)/lib/EduRitGpuCuda.dll: $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
+$(CULIB): $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
 	$${CC:-x86_64-w64-mingw32-gcc} \
 	-I"$(JAVA_HOME)/include" \
 	-I"$(JAVA_HOME)/include/win32" \
@@ -1716,7 +1725,7 @@ $(srcdir)/lib/EduRitGpuCuda.dll: $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/
 	-L$(CUDA_HOME)/lib/x64 \
 	-lcuda
 else
-$(srcdir)/lib/libEduRitGpuCuda.so: $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
+$(CULIB): $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
 	$${CC:-gcc} \
 	-I$(JAVA_HOME)/include \
 	-I$(JAVA_HOME)/include/linux \
@@ -1733,11 +1742,7 @@ S3EX = \
 	ZombieGpu \
 	ZombieGpu2 \
 
-ifdef winos
-S3build: $(srcdir)/lib/EduRitGpuCuda.dll $(CUOBJ) $(JCLS)
-else
-S3build: $(srcdir)/lib/libEduRitGpuCuda.so $(CUOBJ) $(JCLS)
-endif
+S3build: $(CULIB) $(CUOBJ) $(JCLS)
 S3run: $(S3EX)
 
 
@@ -1749,7 +1754,7 @@ clean:
 	rm -f ms3200.png
 
 jclean:
-	rm -f $(JOBJ)
+	rm -f $(JOBJ) $(BINJAR) $(BINLST)
 cclean:
 	rm -f $(srcdir)/lib/libEduRitGpuCuda.so $(srcdir)/lib/EduRitGpuCuda.dll $(CUOBJ)
 
@@ -1759,7 +1764,7 @@ lclean: clean
 
 # real clean
 rclean: lclean
-	rm -f $(SRCJAR) $(BINJAR)
+	rm -f $(SRCJAR)
 
 tidy: rclean
 
