@@ -5,39 +5,39 @@ edu.rit.pj2.example.PrimeSeq \
 100000000000000013
 100000000000000019
 100000000000000021
-Job 1 makespan 5374 msec
+Job 1 makespan 5345 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.PrimeSmp \
 100000000000000003 100000000000000013 100000000000000019 100000000000000021 
+100000000000000019
 100000000000000021
 100000000000000013
 100000000000000003
-100000000000000019
-Job 1 makespan 2075 msec
+Job 1 makespan 2094 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.MineCoinSeq \
 b3e5da601135706f 24 
 Coin ID = b3e5da601135706f
 Nonce   = 0000000000f6fa72
 Digest  = 000000f4a186e571af5e0910fc48a0ed87078f7337016d4d406cfc3a05b328e8
-Job 1 makespan 15435 msec
+Job 1 makespan 14007 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.MineCoinSmp \
 b3e5da601135706f 24 
 Coin ID = b3e5da601135706f
 Nonce   = 0000000000f6fa72
 Digest  = 000000f4a186e571af5e0910fc48a0ed87078f7337016d4d406cfc3a05b328e8
-Job 1 makespan 7154 msec
+Job 1 makespan 6486 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.PiSeq \
 142857 4000000000 
 pi = 4*3141556293/4000000000 = 3,141556293
-Job 1 makespan 40330 msec
+Job 1 makespan 39406 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.PiSmp \
 142857 4000000000 
 pi = 4*3141567239/4000000000 = 3,141567239
-Job 1 makespan 17789 msec
+Job 1 makespan 17949 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.StatTestSeq \
 142857 10 2000000000 
@@ -54,7 +54,7 @@ Bin	Count
 9	200001399
 Chisqr = 5,9335
 Pvalue = 0,74655
-Job 1 makespan 9922 msec
+Job 1 makespan 10749 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.StatTestSmp \
 142857 10 2000000000 
@@ -71,30 +71,30 @@ Bin	Count
 9	200001399
 Chisqr = 5,9335
 Pvalue = 0,74655
-Job 1 makespan 5398 msec
+Job 1 makespan 6131 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.TotientSeq \
 10000019
 10000018
-Job 1 makespan 23634 msec
+Job 1 makespan 23949 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.TotientSmp \
 10000019 
 10000018
-Job 1 makespan 12532 msec
+Job 1 makespan 10986 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.ZombieSeq \
 142857 200 5 0.5 10 0.00001 0.001 0 0 > zom200_0.txt 
-Job 1 makespan 45264 msec
+Job 1 makespan 45510 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.ZombieSmp \
 142857 200 5 0.5 10 0.00001 0.001 0 0 > zom200_4.txt 
-Job 1 makespan 14963 msec
+Job 1 makespan 15491 msec
 java -classpath pj2/lib pj2 debug=makespan \
 edu.rit.pj2.example.MandelbrotSeq \
 3200 3200 -0.75 0 1200 1000 0.4 ms3200.png
-30 msec pre
-11922 msec calc
-300 msec write
-12252 msec total
-Job 1 makespan 12258 msec
+15 msec pre
+8798 msec calc
+313 msec write
+9126 msec total
+Job 1 makespan 9126 msec
