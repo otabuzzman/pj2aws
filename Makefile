@@ -4,7 +4,7 @@ else
 	linos := 1
 endif
 
-PJ2ID	= 20181128
+PJ2ID	= 20190611
 # begin PJ2ID specific
 JSRC = \
 pj2/lib/edu/rit/crypto/CipherInputStream.java \
