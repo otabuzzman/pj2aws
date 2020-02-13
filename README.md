@@ -49,7 +49,7 @@ aws configure
 git clone https://github.com/otabuzzman/pj2aws.git
 # Build pj2aws
 cd pj2aws
-make pj2 jclean
+make pj2/lib jclean
 make S2build
 # Run S2 examples
 make S2run 2>&1 | tee S2run.out
@@ -184,7 +184,7 @@ make -j S1run
 #### Cues on PJ2 updates
 Updates to PJ2 have an update specific value which is the numerical part in the file name of the PJ2 source distribution. The `PJ2ID` variable in `Makefile` must reflect that value. Also there are some variables in `Makefile` that list source and object files. They might need to be changed, too. These variables are embraced by `# begin PJ2ID specific` and `# end PJ2ID specific` comments.
 
-In case of an update to PJ2 1) run `make tidy` 2) update `PJ2ID` variable in `Makefile` 3) run `make init` and finally 4) replace embraced variables with output of `make vars`.
+In case of an update for PJ2 1) save `pj2` directory 2) run `make tidy` 3) update `PJ2ID` variable in `Makefile` 4) run `make init` and finally 5) replace embraced variables with output of `make vars`.
 
 Apply a recursive `diff -qr` to find new and changed files. Especially check if patched files are affected from update. Use `diff -u` to make new patch files.
 

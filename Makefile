@@ -1603,9 +1603,9 @@ pj2/lib/edu/rit/gpu/test/Test06.cu \
 JCLS	= $(foreach d,$(sort $(dir $(JSRC))),$(d)*.class)
 CUOBJ	= $(patsubst %.cu,%.ptx,$(CUSRC))
 ifdef winos
-CULIB	= $(srcdir)/lib/EduRitGpuCuda.dll
+CULIB	= $(pkgdir)/EduRitGpuCuda.dll
 else
-CULIB	= $(srcdir)/lib/libEduRitGpuCuda.so
+CULIB	= $(pkgdir)/libEduRitGpuCuda.so
 endif
 
 SRCURL	= https://www.cs.rit.edu/~ark/pj2src_$(PJ2ID).jar
@@ -1614,51 +1614,51 @@ SRCJAR	= pj2src.jar
 BINJAR	= pj2.jar
 BINLST	= pj2.lst
 
-# must equal top-level directory in $(SRCJAR)
-srcdir	= pj2
+# top-level directory of PJ2 package in $(SRCJAR)
+pkgdir	= pj2/lib
 
 $(SRCJAR):
 	wget -q -O $@ $(SRCURL)
 
 $(BINJAR): $(BINLST)
-	( cd $(srcdir)/lib ; jar c @../../$< ) >$@
+	( cd $(pkgdir) ; jar c @../../$< ) >$@
 $(BINLST):
-	echo $(subst $(srcdir)/lib/,,$(JOBJ)) >$@
+	echo $(subst $(pkgdir)/,,$(JOBJ)) >$@
 
-$(srcdir): $(SRCJAR)
+$(pkgdir): $(SRCJAR)
 	jar xf $<
 
-init: $(srcdir)
+init: $(pkgdir)
 	javac \
 	-Xlint:unchecked \
 	`find $< -name '*.java' -print`
 
 vars:
 	@echo JSRC = \\
-	@find $(srcdir)/lib -name '*.java' -print | sed -e 's,$$, \\,'
+	@find $(pkgdir) -name '*.java' -print | sed -e 's,$$, \\,'
 	@echo
 	@echo JOBJ = \\
-	@find $(srcdir)/lib -name '*.class' -print | sed -e 's,$$, \\,' -e 's,\$$,\\\$$\$$,g'
+	@find $(pkgdir) -name '*.class' -print | sed -e 's,$$, \\,' -e 's,\$$,\\\$$\$$,g'
 	@echo
 	@echo CUSRC = \\
-	@find $(srcdir)/lib -name '*.cu' -print | sed -e 's,$$, \\,'
+	@find $(pkgdir) -name '*.cu' -print | sed -e 's,$$, \\,'
 	@echo
 
 .SUFFIXES: .java .class
 .java.class:
 	javac \
 	-Xlint:unchecked \
-	-classpath $(srcdir)/lib \
+	-classpath $(pkgdir) \
 	$^
 
 Texec:
-	java -classpath $(srcdir)/lib \
+	java -classpath $(pkgdir) \
 	-Dedu.rit.pj2.tracker.Tracker.publicip=$(PJ2_TRACKER_PUBLICIP) \
 	edu.rit.pj2.tracker.Tracker \
 	$(TFLAGS) &
 
 Lexec:
-	java -classpath $(srcdir)/lib \
+	java -classpath $(pkgdir) \
 	edu.rit.pj2.tracker.Launcher \
 	$(LFLAGS) &
 
@@ -1715,7 +1715,7 @@ S2run: $(S2EX)
 	$${NVCC:-nvcc} -ptx -arch compute_20 -o $@ $<
 
 ifdef winos
-$(CULIB): $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
+$(CULIB): $(pkgdir)/edu_rit_gpu_Cuda.c $(pkgdir)/edu_rit_gpu_Cuda.h
 	$${CC:-x86_64-w64-mingw32-gcc} \
 	-I"$(JAVA_HOME)/include" \
 	-I"$(JAVA_HOME)/include/win32" \
@@ -1725,7 +1725,7 @@ $(CULIB): $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
 	-L$(CUDA_HOME)/lib/x64 \
 	-lcuda
 else
-$(CULIB): $(srcdir)/lib/edu_rit_gpu_Cuda.c $(srcdir)/lib/edu_rit_gpu_Cuda.h
+$(CULIB): $(pkgdir)/edu_rit_gpu_Cuda.c $(pkgdir)/edu_rit_gpu_Cuda.h
 	$${CC:-gcc} \
 	-I$(JAVA_HOME)/include \
 	-I$(JAVA_HOME)/include/linux \
@@ -1756,11 +1756,11 @@ clean:
 jclean:
 	rm -f $(JOBJ) $(BINJAR) $(BINLST)
 cclean:
-	rm -f $(srcdir)/lib/libEduRitGpuCuda.so $(srcdir)/lib/EduRitGpuCuda.dll $(CUOBJ)
+	rm -f $(pkgdir)/libEduRitGpuCuda.so $(pkgdir)/EduRitGpuCuda.dll $(CUOBJ)
 
 # local clean
 lclean: clean
-	rm -rf META-INF $(srcdir)
+	rm -rf META-INF pj2
 
 # real clean
 rclean: lclean
@@ -1811,158 +1811,158 @@ TBEX = \
 	ZombieGpu2 \
 
 PrimeSeq:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.PrimeSeq \
 	100000000000000003 100000000000000013 100000000000000019 100000000000000021 
 PrimeSmp:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.PrimeSmp \
 	100000000000000003 100000000000000013 100000000000000019 100000000000000021 
 MineCoinSeq-1:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MineCoinSeq \
 	b3e5da601135706f 24 
 MineCoinSmp:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MineCoinSmp \
 	b3e5da601135706f 24 
 PiSeq:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.PiSeq \
 	142857 4000000000 
 PiSmp:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.PiSmp \
 	142857 4000000000 
 StatTestSeq:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.StatTestSeq \
 	142857 10 2000000000 
 StatTestSmp:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.StatTestSmp \
 	142857 10 2000000000 
 TotientSeq-1:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.TotientSeq \
 	10000019
 TotientSmp-1:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.TotientSmp \
 	10000019 
 TotientSmp-2:
-	java -classpath $(srcdir)/lib pj2 debug=makespan schedule=dynamic chunk=1000 \
+	java -classpath $(pkgdir) pj2 debug=makespan schedule=dynamic chunk=1000 \
 	edu.rit.pj2.example.TotientSmp \
 	10000019 
 TotientSmp-3:
-	java -classpath $(srcdir)/lib pj2 debug=makespan schedule=proportional \
+	java -classpath $(pkgdir) pj2 debug=makespan schedule=proportional \
 	edu.rit.pj2.example.TotientSmp \
 	10000019 
 TotientSmp-4:
-	java -classpath $(srcdir)/lib pj2 debug=makespan schedule=guided \
+	java -classpath $(pkgdir) pj2 debug=makespan schedule=guided \
 	edu.rit.pj2.example.TotientSmp \
 	10000019 
 ZombieSeq-1:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.ZombieSeq \
 	142857 200 5 0.5 10 0.00001 0.001 0 0 > zom200_0.txt 
 ZombieSmp-1:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.ZombieSmp \
 	142857 200 5 0.5 10 0.00001 0.001 0 0 > zom200_4.txt 
 ZombieSmp-2:
-	java -classpath $(srcdir)/lib pj2 debug=makespan threads=2 \
+	java -classpath $(pkgdir) pj2 debug=makespan threads=2 \
 	edu.rit.pj2.example.ZombieSmp \
 	142857 283 5.95 0.5 10.0 0.00001 0.001 0 0
 g31.txt:
-	java -classpath $(srcdir)/lib \
+	java -classpath $(pkgdir) \
 	edu.rit.pj2.example.RandomGraph \
 	31 310 12345678 > $@
 MinVerCovSeq: g31.txt
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MinVerCovSeq \
 	g31.txt
 MinVerCovSmp: g31.txt
-	java -classpath $(srcdir)/lib pj2 debug=makespan cores=4 \
+	java -classpath $(pkgdir) pj2 debug=makespan cores=4 \
 	edu.rit.pj2.example.MinVerCovSmp \
 	g31.txt
 MinVerCovSeq2: g31.txt
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MinVerCovSeq2 \
 	g31.txt
 MinVerCovSmp2-1: g31.txt
-	java -classpath $(srcdir)/lib pj2 debug=makespan cores=4 \
+	java -classpath $(pkgdir) pj2 debug=makespan cores=4 \
 	edu.rit.pj2.example.MinVerCovSmp2 \
 	g31.txt
 g40.txt:
-	java -classpath $(srcdir)/lib \
+	java -classpath $(pkgdir) \
 	edu.rit.pj2.example.RandomGraph \
 	40 312 12345678 > $@
 MinVerCovSmp2-2: g40.txt
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MinVerCovSmp2 \
 	g40.txt 
 MinVerCovSmp3-1: g40.txt
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MinVerCovSmp3 \
 	g40.txt 23576879 100000000
 MinVerCovSmp3-2: g40.txt
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MinVerCovSmp3 \
 	g40.txt 23576879 1000000000
 MineCoinSeq-2:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MineCoinSeq \
 	fedcba9876543210 28
 MineCoinClu3:
-	java -classpath $(srcdir)/lib pj2 debug=makespan workers=2 \
+	java -classpath $(pkgdir) pj2 debug=makespan workers=2 \
 	edu.rit.pj2.example.MineCoinClu3 \
 	fedcba9876543210 28
 TotientSeq-2:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.TotientSeq \
 	20000003
 TotientClu-1:
-	java -classpath $(srcdir)/lib pj2 debug=makespan workers=1 masterSchedule=proportional masterChunk=100 threads=1 schedule=guided \
+	java -classpath $(pkgdir) pj2 debug=makespan workers=1 masterSchedule=proportional masterChunk=100 threads=1 schedule=guided \
 	edu.rit.pj2.example.TotientClu \
 	20000003
 TotientClu-2:
-	java -classpath $(srcdir)/lib pj2 debug=makespan workers=1 masterSchedule=proportional masterChunk=100 schedule=guided \
+	java -classpath $(pkgdir) pj2 debug=makespan workers=1 masterSchedule=proportional masterChunk=100 schedule=guided \
 	edu.rit.pj2.example.TotientClu \
 	20000003
 MandelbrotSeq:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.MandelbrotSeq \
 	3200 3200 -0.75 0 1200 1000 0.4 ms3200.png
 MandelbrotClu-1:
-	java -classpath $(srcdir)/lib pj2 debug=makespan workers=1 cores=1 \
+	java -classpath $(pkgdir) pj2 debug=makespan workers=1 cores=1 \
 	edu.rit.pj2.example.MandelbrotClu \
 	3200 3200 -0.75 0 1200 1000 0.4 ms3200.png
 MandelbrotClu-2:
-	java -classpath $(srcdir)/lib pj2 debug=makespan workers=2 \
+	java -classpath $(pkgdir) pj2 debug=makespan workers=2 \
 	edu.rit.pj2.example.MandelbrotClu \
 	3200 3200 -0.75 0 1200 1000 0.4 ms3200.png
 PiGpu2-1:
-	java -Djava.library.path=$(srcdir)/lib -classpath $(srcdir)/lib pj2 debug=makespan gpus=1 \
+	java -Djava.library.path=$(pkgdir) -classpath $(pkgdir) pj2 debug=makespan gpus=1 \
 	edu.rit.gpu.example.PiGpu2 \
 	142857 100000000000
 PiGpu2-2:
-	java -Djava.library.path=$(srcdir)/lib -classpath $(srcdir)/lib pj2 debug=makespan gpus=2 \
+	java -Djava.library.path=$(pkgdir) -classpath $(pkgdir) pj2 debug=makespan gpus=2 \
 	edu.rit.gpu.example.PiGpu2 \
 	142857 200000000000
 ZombieSeq-2:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.ZombieSeq \
 	142857 100 5.00 0.5 10 0.00001 0.001 0 0 
 ZombieGpu:
-	java -Djava.library.path=$(srcdir)/lib -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -Djava.library.path=$(pkgdir) -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.gpu.example.ZombieGpu \
 	142857 100 5.00 0.5 10 0.00001 0.001 0 0 
 ZombieSeq-3:
-	java -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.pj2.example.ZombieSeq \
 	142857 100 5.00 0.5 10 0.00001 0.001 0 0 
 ZombieGpu2:
-	java -Djava.library.path=$(srcdir)/lib -classpath $(srcdir)/lib pj2 debug=makespan \
+	java -Djava.library.path=$(pkgdir) -classpath $(pkgdir) pj2 debug=makespan \
 	edu.rit.gpu.example.ZombieGpu2 \
 	142857 100 5.00 0.5 10 0.00001 0.001 0 0 
